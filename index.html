@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ken's Linktree</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* 主背景樣式 - 完全透明讓影片顯示 */
+      body {
+        background: transparent;
+        transition: all 0.3s ease-in-out;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* 背景影片容器 */
+      .background-video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        overflow: hidden;
+        display: block !important;
+        visibility: visible !important;
+      }
+
+      /* 背景影片樣式 */
+      .background-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translateX(-50%) translateY(-50%);
+        object-fit: cover;
+        opacity: 1;
+        transition: opacity 1s ease-in-out;
+        display: block !important;
+        visibility: visible !important;
+      }
+
+      /* 主容器樣式 - 完全居中設計 */
+      .main-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 4rem 1rem 2rem;
+        position: relative;
+      }
+
+      /* 頭像容器 - 完全仿照 Linktree */
+      .avatar-container {
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .avatar-ring {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      }
+
+      .avatar-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+      }
+
+      /* 文字樣式 - 完全仿照 Linktree */
+      .profile-name {
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+        letter-spacing: -0.025em;
+      }
+
+      .profile-bio {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        line-height: 1.4;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+      }
+
+      /* 社群圖示 */
+      .social-icon {
+        color: white;
+        font-size: 1.75rem;
+        transition: all 0.2s ease;
+        display: inline-block;
+        margin-bottom: 2rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .social-icon:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+
+      /* 連結按鈕樣式 - 完全仿照 Linktree */
+      .link-btn {
+        width: 100%;
+        max-width: 400px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #1f2937;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.2s ease;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .link-btn:hover {
+        transform: translateY(-1px);
+        background: white;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+        color: #1f2937;
+      }
+
+      .link-btn i {
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+
+      /* 深色模式下的按鈕 */
+      [data-theme="dark"] .link-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="dark"] .link-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* 右上角選單按鈕 - 更簡潔的設計 */
+      .menu-btn {
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+
+      .menu-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(1.05);
+      }
+
+      /* 下拉選單樣式 - 更加現代化 */
+      .dropdown-menu {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(30px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        min-width: 220px;
+        overflow: hidden;
+        animation: fadeInScale 0.2s ease;
+      }
+
+      @keyframes fadeInScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.95) translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .dropdown-item {
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: #1f2937;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-weight: 500;
+      }
+
+      .dropdown-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      .dropdown-item:last-child {
+        border-bottom: none;
+      }
+
+      .dropdown-item i {
+        width: 18px;
+        text-align: center;
+      }
+
+      /* 深色模式下的下拉選單 */
+      [data-theme="dark"] .dropdown-menu {
+        background: rgba(31, 41, 55, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="dark"] .dropdown-item {
+        color: white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      [data-theme="dark"] .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* 頁腳樣式 - 仿照 Linktree */
+      .footer-container {
+        margin-top: auto;
+        padding-top: 3rem;
+        text-align: center;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .footer-link {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .footer-link:hover {
+        color: white;
+      }
+
+      .footer-separator {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.75rem;
+      }
+
+      .footer-brand {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+      }
+
+      .footer-copyright {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Modal 樣式 - 現代化設計 */
+      .modal-backdrop {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+      }
+
+      .modal-box {
+        background: white;
+        border-radius: 24px;
+        max-width: 420px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        border: none;
+        padding: 2rem;
+      }
+
+      [data-theme="dark"] .modal-box {
+        background: rgb(31, 41, 55);
+        color: white;
+      }
+
+      /* 分享選項網格 - 更精緻的設計 */
+      .share-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+        margin: 2rem 0;
+      }
+
+      .share-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 0.5rem;
+        border-radius: 12px;
+      }
+
+      .share-item:hover {
+        transform: translateY(-2px);
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      [data-theme="dark"] .share-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .share-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .share-label {
+        font-size: 0.75rem;
+        text-align: center;
+        color: #4b5563;
+        font-weight: 500;
+      }
+
+      [data-theme="dark"] .share-label {
+        color: #d1d5db;
+      }
+
+      /* Toast 通知樣式 - 更現代 */
+      .toast {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 16px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+        transform: translateX(100%);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-weight: 500;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast.success {
+        background: rgba(34, 197, 94, 0.95);
+      }
+
+      .toast.error {
+        background: rgba(239, 68, 68, 0.95);
+      }
+
+      .toast.info {
+        background: rgba(59, 130, 246, 0.95);
+      }
+
+      /* 響應式設計 - 優化移動端體驗 */
+      @media (max-width: 640px) {
+        .main-container {
+          padding: 3rem 1rem 1.5rem;
+        }
+
+        .profile-name {
+          font-size: 1.75rem;
+        }
+
+        .profile-bio {
+          font-size: 0.875rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .link-btn {
+          max-width: 100%;
+          margin-bottom: 0.875rem;
+          height: 48px;
+        }
+
+        .footer-links {
+          gap: 1rem;
+          flex-direction: column;
+        }
+
+        .footer-separator {
+          display: none;
+        }
+
+        .share-grid {
+          gap: 1rem;
+        }
+
+        .menu-btn {
+          top: 1rem;
+          right: 1rem;
+          width: 40px;
+          height: 40px;
+        }
+
+        .dropdown-menu {
+          min-width: 200px;
+          top: 3.5rem !important;
+          right: 1rem !important;
+        }
+
+        .avatar-ring {
+          width: 88px;
+          height: 88px;
+        }
+
+        .toast {
+          top: 1rem;
+          right: 1rem;
+          left: 1rem;
+          transform: translateY(-100%);
+        }
+
+        .toast.show {
+          transform: translateY(0);
+        }
+      }
+
+      /* 平板電腦優化 */
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .main-container {
+          padding: 3.5rem 2rem 2rem;
+        }
+
+        .link-btn {
+          max-width: 450px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 背景影片容器 -->
+    <div class="background-video-container">
+      <video
+        id="backgroundVideo"
+        class="background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      >
+        <source
+          src="src/background-media/4108992-sd_540_676_30fps.mp4"
+          type="video/mp4"
+        />
+        <!-- 備用影片來源 -->
+        <source
+          src="src/background-media/5178597-sd_320_568_24fps.mp4"
+          type="video/mp4"
+        />
+        您的瀏覽器不支援 HTML5 影片播放。
+      </video>
+    </div>
+
+    <!-- 右上角選單按鈕 -->
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="menu-btn">
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+      <ul tabindex="0" class="dropdown-content dropdown-menu">
+        <li>
+          <button class="dropdown-item" onclick="toggleTheme()">
+            <i class="fas fa-moon" id="themeIcon"></i>
+            <span id="themeText">深色模式</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" onclick="toggleLanguage()">
+            <i class="fas fa-globe"></i>
+            <span id="langText">English</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" onclick="showShareModal()">
+            <i class="fas fa-share-alt"></i>
+            <span id="shareText">分享</span>
+          </button>
+        </li>
+        <li>
+          <button class="dropdown-item" onclick="window.location.reload()">
+            <i class="fas fa-sync-alt"></i>
+            <span id="refreshText">重新整理</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="main-container">
+      <!-- 頭像 -->
+      <div class="avatar-container">
+        <div class="avatar-ring">
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+            alt="Ken 的頭像"
+            class="avatar-image"
+          />
+        </div>
+      </div>
+
+      <!-- 姓名和簡介 -->
+      <h1 class="profile-name" id="profileName">Ken</h1>
+      <p class="profile-bio" id="profileBio">
+        歡迎來到我的個人連結頁面！<br />
+        在這裡可以找到我所有的社群媒體和重要連結。
+      </p>
+
+      <!-- 社群圖示 -->
+      <a href="https://github.com" class="social-icon mb-6" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+
+      <!-- 連結按鈕 -->
+      <div class="w-full max-w-md space-y-3">
+        <a href="https://github.com" class="link-btn" target="_blank">
+          <i class="fab fa-github"></i>
+          <span id="githubText">GitHub</span>
+        </a>
+
+        <a href="https://linkedin.com" class="link-btn" target="_blank">
+          <i class="fab fa-linkedin"></i>
+          <span id="linkedinText">LinkedIn</span>
+        </a>
+
+        <a href="https://twitter.com" class="link-btn" target="_blank">
+          <i class="fab fa-twitter"></i>
+          <span id="twitterText">Twitter</span>
+        </a>
+
+        <a href="https://instagram.com" class="link-btn" target="_blank">
+          <i class="fab fa-instagram"></i>
+          <span id="instagramText">Instagram</span>
+        </a>
+
+        <a href="mailto:your.email@example.com" class="link-btn">
+          <i class="fas fa-envelope"></i>
+          <span id="emailText">電子郵件</span>
+        </a>
+
+        <a href="https://your-website.com" class="link-btn" target="_blank">
+          <i class="fas fa-globe"></i>
+          <span id="websiteText">個人網站</span>
+        </a>
+
+        <a href="https://your-blog.com" class="link-btn" target="_blank">
+          <i class="fas fa-blog"></i>
+          <span id="blogText">部落格</span>
+        </a>
+
+        <a href="https://youtube.com" class="link-btn" target="_blank">
+          <i class="fab fa-youtube"></i>
+          <span id="youtubeText">YouTube</span>
+        </a>
+      </div>
+
+      <!-- 頁腳 -->
+      <div class="footer-container">
+        <div class="footer-links">
+          <a href="#" class="footer-link" id="privacyText">隱私政策</a>
+          <span class="footer-separator">•</span>
+          <a href="#" class="footer-link" id="termsText">使用條款</a>
+          <span class="footer-separator">•</span>
+          <a href="#" class="footer-link" id="cookiesText">Cookie 政策</a>
+        </div>
+        <div class="footer-brand" id="poweredText">Powered by Ken</div>
+        <div class="footer-copyright" id="copyrightText">
+          © 2024 Ken. 版權所有.
+        </div>
+      </div>
+    </div>
+
+    <!-- 分享 Modal -->
+    <dialog id="shareModal" class="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-box">
+        <form method="dialog">
+          <button
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </form>
+        <h3 class="font-bold text-lg mb-4" id="shareModalTitle">分享此頁面</h3>
+        <div class="share-grid">
+          <div class="share-item" onclick="shareVia('facebook')">
+            <div class="share-icon" style="background: #1877f2">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <span class="share-label">Facebook</span>
+          </div>
+          <div class="share-item" onclick="shareVia('twitter')">
+            <div class="share-icon" style="background: #1da1f2">
+              <i class="fab fa-twitter"></i>
+            </div>
+            <span class="share-label">Twitter</span>
+          </div>
+          <div class="share-item" onclick="shareVia('linkedin')">
+            <div class="share-icon" style="background: #0077b5">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+            <span class="share-label">LinkedIn</span>
+          </div>
+          <div class="share-item" onclick="shareVia('copy')">
+            <div class="share-icon" style="background: #6b7280">
+              <i class="fas fa-copy"></i>
+            </div>
+            <span class="share-label" id="copyLinkText">複製連結</span>
+          </div>
+          <div class="share-item" onclick="shareVia('whatsapp')">
+            <div class="share-icon" style="background: #25d366">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <span class="share-label">WhatsApp</span>
+          </div>
+          <div class="share-item" onclick="shareVia('telegram')">
+            <div class="share-icon" style="background: #0088cc">
+              <i class="fab fa-telegram-plane"></i>
+            </div>
+            <span class="share-label">Telegram</span>
+          </div>
+          <div class="share-item" onclick="shareVia('line')">
+            <div class="share-icon" style="background: #00b900">
+              <i class="fab fa-line"></i>
+            </div>
+            <span class="share-label">LINE</span>
+          </div>
+          <div class="share-item" onclick="shareVia('email')">
+            <div class="share-icon" style="background: #ea4335">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <span class="share-label" id="emailShareText">電子郵件</span>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Toast 通知 -->
+    <div id="toast" class="toast"></div>
+
+    <!-- JavaScript -->
+    <script>
+      // 背景影片管理系統 - 使用 Fisher-Yates 洗牌演算法
+      class VideoBackgroundManager {
+        constructor() {
+          this.videos = [
+            "src/background-media/4108992-sd_540_676_30fps.mp4",
+            "src/background-media/4157418-hd_720_1280_30fps.mp4",
+            "src/background-media/5037449-hd_1080_1920_30fps.mp4",
+            "src/background-media/5178597-sd_320_568_24fps.mp4",
+            "src/background-media/5352609-hd_1080_1920_25fps.mp4",
+            "src/background-media/5383507-hd_1080_1920_30fps.mp4",
+            "src/background-media/5893890-hd_1080_1920_24fps.mp4",
+            "src/background-media/5966737-hd_1080_1920_30fps.mp4",
+            "src/background-media/5968890-uhd_2160_3840_30fps.mp4",
+            "src/background-media/6006476-hd_1080_1920_30fps.mp4",
+            "src/background-media/6040389-hd_1080_1920_30fps.mp4",
+            "src/background-media/6148525-hd_1080_1920_30fps.mp4",
+            "src/background-media/6336968-hd_1080_1920_30fps.mp4",
+            "src/background-media/6520300-uhd_2160_3744_30fps.mp4",
+            "src/background-media/6620814-uhd_2160_4096_25fps.mp4",
+            "src/background-media/6800632-hd_1080_1920_30fps.mp4",
+            "src/background-media/6813908-uhd_2160_3744_30fps.mp4",
+            "src/background-media/7318804-hd_1080_1920_30fps.mp4",
+            "src/background-media/8025689-uhd_2160_3840_24fps.mp4",
+            "src/background-media/8195676-uhd_2160_4096_30fps.mp4",
+            "src/background-media/8233057-uhd_2160_4096_25fps.mp4",
+            "src/background-media/8233938-uhd_2160_4096_25fps.mp4",
+            "src/background-media/8552822-hd_1080_1920_30fps.mp4",
+            "src/background-media/8859853-uhd_2160_3840_25fps.mp4",
+            "src/background-media/9008422-hd_1080_1920_30fps.mp4",
+            "src/background-media/9947052-hd_1080_1920_30fps.mp4",
+            "src/background-media/10110917-uhd_2160_3840_30fps.mp4",
+            "src/background-media/10494882-uhd_2160_4096_25fps.mp4",
+            "src/background-media/13709224-hd_1080_1920_30fps.mp4",
+            "src/background-media/14066876-hd_806_1440_30fps.mp4",
+            "src/background-media/14131305-uhd_2160_3840_60fps.mp4",
+            "src/background-media/14172337_2160_3840_30fps.mp4",
+            "src/background-media/14175295_2160_3840_30fps.mp4",
+            "src/background-media/14178839_2160_3840_30fps.mp4",
+            "src/background-media/15238832-hd_1080_1920_30fps.mp4",
+            "src/background-media/15285981-uhd_1440_2560_30fps.mp4",
+          ];
+
+          this.shuffledVideos = [...this.videos];
+          this.currentIndex = 0;
+          this.videoElement = document.getElementById("backgroundVideo");
+
+          this.fisherYatesShuffle();
+          this.initializeVideo();
+        }
+
+        // Fisher-Yates 洗牌演算法實現
+        fisherYatesShuffle() {
+          console.log("正在執行 Fisher-Yates 洗牌演算法...");
+          const array = this.shuffledVideos;
+
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+
+          console.log("洗牌完成，影片播放順序已隨機化");
+        }
+
+        // 初始化影片播放器
+        initializeVideo() {
+          if (!this.videoElement) {
+            console.error("找不到背景影片元素");
+            return;
+          }
+
+          console.log("影片元素找到:", this.videoElement);
+          console.log("預設影片路徑:", this.shuffledVideos[this.currentIndex]);
+
+          // 設定初始影片
+          this.loadVideo(this.shuffledVideos[this.currentIndex]);
+
+          // 監聽影片載入成功
+          this.videoElement.addEventListener("loadstart", () => {
+            console.log("開始載入影片...");
+          });
+
+          this.videoElement.addEventListener("loadeddata", () => {
+            console.log("影片資料載入完成");
+          });
+
+          this.videoElement.addEventListener("canplay", () => {
+            console.log("影片可以播放了");
+            this.videoElement.play().catch((e) => {
+              console.log("自動播放被阻止，這是正常的瀏覽器行為:", e);
+            });
+          });
+
+          // 監聽影片結束事件
+          this.videoElement.addEventListener("ended", () => {
+            console.log("影片播放結束，切換到下一個");
+            this.playNextVideo();
+          });
+
+          // 監聽影片載入錯誤
+          this.videoElement.addEventListener("error", (e) => {
+            console.error(
+              "影片載入失敗:",
+              this.shuffledVideos[this.currentIndex],
+              e
+            );
+            this.playNextVideo();
+          });
+
+          // 強制顯示影片元素
+          this.videoElement.style.display = "block";
+          this.videoElement.style.visibility = "visible";
+
+          console.log("影片背景管理器初始化完成");
+        }
+
+        // 載入指定影片
+        loadVideo(videoPath) {
+          try {
+            console.log(`正在載入影片: ${videoPath}`);
+
+            // 檢查檔案路徑
+            if (!videoPath || videoPath.trim() === "") {
+              console.error("影片路徑為空");
+              return;
+            }
+
+            // 設定影片來源
+            this.videoElement.src = videoPath;
+
+            // 顯示影片元素的當前狀態
+            console.log("影片元素樣式:", {
+              display: this.videoElement.style.display,
+              visibility: this.videoElement.style.visibility,
+              opacity: this.videoElement.style.opacity,
+              zIndex: window.getComputedStyle(this.videoElement).zIndex,
+            });
+
+            this.videoElement.load();
+
+            // 確保容器可見
+            const container = document.querySelector(
+              ".background-video-container"
+            );
+            if (container) {
+              container.style.display = "block";
+              console.log("影片容器狀態:", {
+                display: container.style.display,
+                zIndex: window.getComputedStyle(container).zIndex,
+              });
+            }
+          } catch (error) {
+            console.error("載入影片時發生錯誤:", error);
+            this.playNextVideo();
+          }
+        }
+
+        // 播放下一個影片
+        playNextVideo() {
+          this.currentIndex =
+            (this.currentIndex + 1) % this.shuffledVideos.length;
+
+          // 如果播放完所有影片，重新洗牌
+          if (this.currentIndex === 0) {
+            console.log("所有影片播放完畢，重新洗牌...");
+            this.fisherYatesShuffle();
+          }
+
+          this.loadVideo(this.shuffledVideos[this.currentIndex]);
+        }
+
+        // 手動切換到下一個影片
+        skipToNext() {
+          console.log("手動切換到下一個影片");
+          this.playNextVideo();
+        }
+
+        // 重新洗牌影片順序
+        reshuffleVideos() {
+          console.log("重新洗牌影片順序");
+          this.fisherYatesShuffle();
+          this.currentIndex = 0;
+          this.loadVideo(this.shuffledVideos[this.currentIndex]);
+        }
+      }
+
+      // 全域變數
+      let currentTheme = localStorage.getItem("theme") || "light";
+      let currentLang = localStorage.getItem("language") || "zh";
+      let videoManager;
+
+      // 多語言內容
+      const translations = {
+        zh: {
+          profileName: "Ken",
+          profileBio:
+            "歡迎來到我的個人連結頁面！<br />在這裡可以找到我所有的社群媒體和重要連結。",
+          themeText: "深色模式",
+          langText: "English",
+          shareText: "分享",
+          refreshText: "重新整理",
+          githubText: "GitHub",
+          linkedinText: "LinkedIn",
+          twitterText: "Twitter",
+          instagramText: "Instagram",
+          emailText: "電子郵件",
+          websiteText: "個人網站",
+          blogText: "部落格",
+          youtubeText: "YouTube",
+          privacyText: "隱私政策",
+          termsText: "使用條款",
+          cookiesText: "Cookie 政策",
+          poweredText: "Powered by Ken",
+          copyrightText: "© 2024 Ken. 版權所有.",
+          shareModalTitle: "分享此頁面",
+          copyLinkText: "複製連結",
+          emailShareText: "電子郵件",
+          linkCopied: "連結已複製到剪貼簿！",
+          copyFailed: "複製失敗，請手動複製",
+          sharedSuccess: "分享成功！",
+        },
+        en: {
+          profileName: "Ken",
+          profileBio:
+            "Welcome to my personal link page!<br />Find all my social media and important links here.",
+          themeText: "Dark Mode",
+          langText: "中文",
+          shareText: "Share",
+          refreshText: "Refresh",
+          githubText: "GitHub",
+          linkedinText: "LinkedIn",
+          twitterText: "Twitter",
+          instagramText: "Instagram",
+          emailText: "Email",
+          websiteText: "Website",
+          blogText: "Blog",
+          youtubeText: "YouTube",
+          privacyText: "Privacy Policy",
+          termsText: "Terms of Service",
+          cookiesText: "Cookie Policy",
+          poweredText: "Powered by Ken",
+          copyrightText: "© 2024 Ken. All rights reserved.",
+          shareModalTitle: "Share this page",
+          copyLinkText: "Copy Link",
+          emailShareText: "Email",
+          linkCopied: "Link copied to clipboard!",
+          copyFailed: "Copy failed, please copy manually",
+          sharedSuccess: "Shared successfully!",
+        },
+      };
+
+      // 初始化頁面
+      function initializePage() {
+        console.log("正在初始化頁面...");
+
+        // 設定主題
+        document.documentElement.setAttribute("data-theme", currentTheme);
+        updateThemeIcon();
+
+        // 設定語言
+        updateLanguage();
+
+        // 初始化背景影片管理器
+        videoManager = new VideoBackgroundManager();
+
+        // 添加點擊事件來啟動影片播放（解決自動播放限制）
+        document.addEventListener("click", function enableVideoOnFirstClick() {
+          if (videoManager && videoManager.videoElement) {
+            videoManager.videoElement
+              .play()
+              .then(() => {
+                console.log("使用者互動後影片開始播放");
+              })
+              .catch((e) => {
+                console.log("使用者互動後仍無法播放影片:", e);
+              });
+            // 移除事件監聽器，只需要執行一次
+            document.removeEventListener("click", enableVideoOnFirstClick);
+          }
+        });
+
+        console.log("頁面初始化完成");
+        console.log("如果看不到背景影片，請點擊頁面任意位置啟動播放");
+      }
+
+      // 切換主題
+      function toggleTheme() {
+        currentTheme = currentTheme === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", currentTheme);
+        localStorage.setItem("theme", currentTheme);
+        updateThemeIcon();
+
+        showToast(
+          currentTheme === "dark" ? "已切換到深色模式" : "已切換到淺色模式",
+          "info"
+        );
+      }
+
+      // 更新主題圖示
+      function updateThemeIcon() {
+        const themeIcon = document.getElementById("themeIcon");
+        const themeText = document.getElementById("themeText");
+
+        if (currentTheme === "dark") {
+          themeIcon.className = "fas fa-sun";
+          themeText.textContent =
+            currentLang === "zh" ? "淺色模式" : "Light Mode";
+        } else {
+          themeIcon.className = "fas fa-moon";
+          themeText.textContent =
+            currentLang === "zh" ? "深色模式" : "Dark Mode";
+        }
+      }
+
+      // 切換語言
+      function toggleLanguage() {
+        currentLang = currentLang === "zh" ? "en" : "zh";
+        localStorage.setItem("language", currentLang);
+        updateLanguage();
+        updateThemeIcon();
+
+        showToast(
+          currentLang === "zh" ? "已切換到繁體中文" : "Switched to English",
+          "info"
+        );
+      }
+
+      // 更新語言內容
+      function updateLanguage() {
+        const texts = translations[currentLang];
+
+        Object.keys(texts).forEach((key) => {
+          const element = document.getElementById(key);
+          if (element) {
+            if (key === "profileBio") {
+              element.innerHTML = texts[key];
+            } else {
+              element.textContent = texts[key];
+            }
+          }
+        });
+      }
+
+      // 顯示分享模態框
+      function showShareModal() {
+        document.getElementById("shareModal").showModal();
+      }
+
+      // 分享功能
+      function shareVia(platform) {
+        const url = window.location.href;
+        const title = "來看看 Ken 的個人連結頁面！";
+
+        try {
+          switch (platform) {
+            case "facebook":
+              window.open(
+                `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                  url
+                )}`,
+                "_blank"
+              );
+              break;
+            case "twitter":
+              window.open(
+                `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                  url
+                )}&text=${encodeURIComponent(title)}`,
+                "_blank"
+              );
+              break;
+            case "linkedin":
+              window.open(
+                `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                  url
+                )}`,
+                "_blank"
+              );
+              break;
+            case "whatsapp":
+              window.open(
+                `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`,
+                "_blank"
+              );
+              break;
+            case "telegram":
+              window.open(
+                `https://t.me/share/url?url=${encodeURIComponent(
+                  url
+                )}&text=${encodeURIComponent(title)}`,
+                "_blank"
+              );
+              break;
+            case "line":
+              window.open(
+                `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+                  url
+                )}`,
+                "_blank"
+              );
+              break;
+            case "email":
+              window.open(
+                `mailto:?subject=${encodeURIComponent(
+                  title
+                )}&body=${encodeURIComponent(title + "\n\n" + url)}`,
+                "_blank"
+              );
+              break;
+            case "copy":
+              copyToClipboard(url);
+              return;
+          }
+
+          showToast(translations[currentLang].sharedSuccess, "success");
+          document.getElementById("shareModal").close();
+        } catch (error) {
+          console.error("分享失敗:", error);
+          showToast("分享失敗，請稍後再試", "error");
+        }
+      }
+
+      // 複製到剪貼簿
+      async function copyToClipboard(text) {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            showToast(translations[currentLang].linkCopied, "success");
+          } else {
+            // 備用方法
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+              document.execCommand("copy");
+              showToast(translations[currentLang].linkCopied, "success");
+            } catch (err) {
+              showToast(translations[currentLang].copyFailed, "error");
+            }
+
+            document.body.removeChild(textArea);
+          }
+          document.getElementById("shareModal").close();
+        } catch (error) {
+          console.error("複製失敗:", error);
+          showToast(translations[currentLang].copyFailed, "error");
+        }
+      }
+
+      // 顯示 Toast 通知
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.className = `toast ${type}`;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // 鍵盤快捷鍵
+      document.addEventListener("keydown", function (e) {
+        // Ctrl/Cmd + K 開啟分享
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          showShareModal();
+        }
+
+        // Ctrl/Cmd + D 切換主題
+        if ((e.ctrlKey || e.metaKey) && e.key === "d") {
+          e.preventDefault();
+          toggleTheme();
+        }
+
+        // Ctrl/Cmd + L 切換語言
+        if ((e.ctrlKey || e.metaKey) && e.key === "l") {
+          e.preventDefault();
+          toggleLanguage();
+        }
+
+        // 空白鍵切換影片
+        if (e.key === " " && e.target === document.body) {
+          e.preventDefault();
+          if (videoManager) {
+            videoManager.skipToNext();
+          }
+        }
+      });
+
+      // 防止右鍵選單（可選）
+      // document.addEventListener('contextmenu', e => e.preventDefault());
+
+      // 頁面載入完成後初始化
+      document.addEventListener("DOMContentLoaded", initializePage);
+
+      // 視窗大小改變時重新調整影片
+      window.addEventListener("resize", function () {
+        if (videoManager && videoManager.videoElement) {
+          // 觸發重新計算影片尺寸
+          videoManager.videoElement.style.minWidth = "100%";
+          videoManager.videoElement.style.minHeight = "100%";
+        }
+      });
+
+      // 頁面可見性變化處理
+      document.addEventListener("visibilitychange", function () {
+        if (videoManager && videoManager.videoElement) {
+          if (document.hidden) {
+            videoManager.videoElement.pause();
+          } else {
+            videoManager.videoElement.play().catch((e) => {
+              console.log("恢復播放失敗，這是正常的瀏覽器行為");
+            });
+          }
+        }
+      });
+
+      console.log("Ken 的 Linktree 已準備就緒！");
+      console.log(
+        "快捷鍵: Ctrl+K(分享), Ctrl+D(主題), Ctrl+L(語言), 空白鍵(切換影片)"
+      );
+    </script>
+  </body>
+</html>

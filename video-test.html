@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影片測試</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #000;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      .test-video {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        border: 2px solid #fff;
+      }
+      .info {
+        margin: 20px 0;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>背景影片測試頁面</h1>
+
+    <div class="info">
+      <h2>測試影片播放</h2>
+      <p>這個頁面用來測試影片檔案是否能正常載入和播放。</p>
+    </div>
+
+    <video id="testVideo" class="test-video" controls muted>
+      <source
+        src="src/background-media/4108992-sd_540_676_30fps.mp4"
+        type="video/mp4"
+      />
+      <source
+        src="src/background-media/5178597-sd_320_568_24fps.mp4"
+        type="video/mp4"
+      />
+      您的瀏覽器不支援 HTML5 影片播放。
+    </video>
+
+    <div class="info">
+      <button onclick="playVideo()">播放影片</button>
+      <button onclick="pauseVideo()">暫停影片</button>
+      <button onclick="testNextVideo()">測試下一個影片</button>
+      <button onclick="checkVideoStatus()">檢查狀態</button>
+    </div>
+
+    <div id="status" class="info">
+      <h3>狀態資訊：</h3>
+      <p id="statusText">等待操作...</p>
+    </div>
+
+    <script>
+      const video = document.getElementById("testVideo");
+      const statusText = document.getElementById("statusText");
+
+      const testVideos = [
+        "src/background-media/4108992-sd_540_676_30fps.mp4",
+        "src/background-media/5178597-sd_320_568_24fps.mp4",
+        "src/background-media/4157418-hd_720_1280_30fps.mp4",
+        "src/background-media/5037449-hd_1080_1920_30fps.mp4",
+      ];
+
+      let currentVideoIndex = 0;
+
+      function updateStatus(message) {
+        statusText.textContent = message;
+        console.log(message);
+      }
+
+      function playVideo() {
+        video
+          .play()
+          .then(() => {
+            updateStatus("影片開始播放");
+          })
+          .catch((e) => {
+            updateStatus("播放失敗: " + e.message);
+          });
+      }
+
+      function pauseVideo() {
+        video.pause();
+        updateStatus("影片已暫停");
+      }
+
+      function testNextVideo() {
+        currentVideoIndex = (currentVideoIndex + 1) % testVideos.length;
+        const newSrc = testVideos[currentVideoIndex];
+        updateStatus("切換到影片: " + newSrc);
+        video.src = newSrc;
+        video.load();
+      }
+
+      function checkVideoStatus() {
+        const info = {
+          src: video.src,
+          readyState: video.readyState,
+          networkState: video.networkState,
+          error: video.error ? video.error.message : "None",
+          paused: video.paused,
+          ended: video.ended,
+          duration: video.duration,
+          currentTime: video.currentTime,
+        };
+
+        updateStatus(JSON.stringify(info, null, 2));
+      }
+
+      // 事件監聽器
+      video.addEventListener("loadstart", () =>
+        updateStatus("開始載入影片...")
+      );
+      video.addEventListener("loadeddata", () =>
+        updateStatus("影片資料載入完成")
+      );
+      video.addEventListener("canplay", () => updateStatus("影片可以播放"));
+      video.addEventListener("play", () => updateStatus("影片開始播放"));
+      video.addEventListener("pause", () => updateStatus("影片暫停"));
+      video.addEventListener("error", (e) =>
+        updateStatus(
+          "影片錯誤: " + (video.error ? video.error.message : "Unknown")
+        )
+      );
+
+      // 頁面載入完成
+      document.addEventListener("DOMContentLoaded", () => {
+        updateStatus("頁面載入完成，準備測試影片");
+      });
+    </script>
+  </body>
+</html>
