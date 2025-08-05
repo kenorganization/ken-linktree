@@ -28,6 +28,30 @@
         overflow-x: hidden;
       }
 
+      /* 頁面載入時的背景 - 防止白屏 */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -3;
+        background: linear-gradient(
+          135deg,
+          rgb(21, 124, 133) 0%,
+          rgb(45, 212, 191) 100%
+        );
+        opacity: 1;
+        transition: opacity 2s ease-out;
+      }
+
+      /* 影片載入完成後隱藏載入背景 */
+      body.video-loaded::before {
+        opacity: 0;
+        pointer-events: none;
+      }
+
       /* 背景影片容器 */
       .background-video-container {
         position: fixed;
@@ -52,10 +76,15 @@
         height: auto;
         transform: translateX(-50%) translateY(-50%);
         object-fit: cover;
-        opacity: 1;
-        transition: opacity 1s ease-in-out;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
         display: block !important;
         visibility: visible !important;
+      }
+
+      /* 影片載入完成後顯示 */
+      .background-video.loaded {
+        opacity: 1;
       }
 
       /* 主容器樣式 - 完全居中設計 */
@@ -503,7 +532,8 @@
         muted
         loop
         playsinline
-        preload="auto"
+        preload="metadata"
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3C/svg%3E"
       >
         <source
           src="src/background-media/4108992-sd_540_676_30fps.mp4"
@@ -750,6 +780,7 @@
           this.shuffledVideos = [...this.videos];
           this.currentIndex = 0;
           this.videoElement = document.getElementById("backgroundVideo");
+          this.preloadElement = null; // 預載影片元素
 
           this.fisherYatesShuffle();
           this.initializeVideo();
@@ -788,13 +819,31 @@
 
           this.videoElement.addEventListener("loadeddata", () => {
             console.log("影片資料載入完成");
+            // 影片資料載入完成，開始淡入效果
+            this.videoElement.classList.add("loaded");
+            // 同時開始淡出載入背景
+            document.body.classList.add("video-loaded");
           });
 
           this.videoElement.addEventListener("canplay", () => {
             console.log("影片可以播放了");
+            // 確保影片已經有載入標記
+            this.videoElement.classList.add("loaded");
+            document.body.classList.add("video-loaded");
+
             this.videoElement.play().catch((e) => {
               console.log("自動播放被阻止，這是正常的瀏覽器行為:", e);
             });
+          });
+
+          this.videoElement.addEventListener("playing", () => {
+            console.log("影片開始播放");
+            // 確保載入效果完成
+            this.videoElement.classList.add("loaded");
+            document.body.classList.add("video-loaded");
+
+            // 開始預載下一個影片
+            this.preloadNextVideo();
           });
 
           // 監聽影片結束事件
@@ -830,6 +879,9 @@
               console.error("影片路徑為空");
               return;
             }
+
+            // 重置載入狀態 - 切換影片時先淡出
+            this.videoElement.classList.remove("loaded");
 
             // 設定影片來源
             this.videoElement.src = videoPath;
@@ -887,6 +939,25 @@
           this.fisherYatesShuffle();
           this.currentIndex = 0;
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
+        }
+
+        // 預載下一個影片
+        preloadNextVideo() {
+          const nextIndex =
+            (this.currentIndex + 1) % this.shuffledVideos.length;
+          const nextVideoPath = this.shuffledVideos[nextIndex];
+
+          if (this.preloadElement) {
+            this.preloadElement.remove();
+          }
+
+          this.preloadElement = document.createElement("video");
+          this.preloadElement.src = nextVideoPath;
+          this.preloadElement.preload = "metadata";
+          this.preloadElement.style.display = "none";
+          document.body.appendChild(this.preloadElement);
+
+          console.log(`預載下一個影片: ${nextVideoPath}`);
         }
       }
 
@@ -968,6 +1039,17 @@
 
         // 初始化背景影片管理器
         videoManager = new VideoBackgroundManager();
+
+        // 設定載入超時保護 - 如果3秒後還沒載入完成，強制顯示
+        setTimeout(() => {
+          if (!document.body.classList.contains("video-loaded")) {
+            console.log("影片載入超時，強制顯示載入背景");
+            document.body.classList.add("video-loaded");
+            if (videoManager && videoManager.videoElement) {
+              videoManager.videoElement.classList.add("loaded");
+            }
+          }
+        }, 3000);
 
         // 添加點擊事件來啟動影片播放（解決自動播放限制）
         document.addEventListener("click", function enableVideoOnFirstClick() {
