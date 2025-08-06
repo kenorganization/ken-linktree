@@ -32,30 +32,6 @@
         overflow-x: hidden;
       }
 
-      /* 頁面載入時的背景 - 防止閃爍 */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -3;
-        background: linear-gradient(
-          135deg,
-          rgb(21, 124, 133) 0%,
-          rgb(45, 212, 191) 100%
-        );
-        opacity: 1;
-        transition: opacity 0.2s ease-out;
-      }
-
-      /* 影片載入完成後隱藏載入背景*/
-      body.video-loaded::before {
-        opacity: 0;
-        pointer-events: none;
-      }
-
       /* 背景影片容器 */
       .background-video-container {
         position: fixed;
@@ -69,7 +45,7 @@
         visibility: visible !important;
       }
 
-      /* 背景影片樣式 */
+      /* 背景影片樣式 - 移除轉場效果，立即顯示 */
       .background-video {
         position: absolute;
         top: 50%;
@@ -80,15 +56,9 @@
         height: auto;
         transform: translateX(-50%) translateY(-50%);
         object-fit: cover;
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+        opacity: 1;
         display: block !important;
         visibility: visible !important;
-      }
-
-      /* 影片載入完成後顯示*/
-      .background-video.loaded {
-        opacity: 1;
       }
 
       /* 主容器樣式 - 完全居中設計 */
@@ -1868,35 +1838,19 @@
           // 設定第一個影片
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
 
-          // 監聽影片載入事件
-          this.videoElement.addEventListener("loadstart", () => {
-            // 快速顯示主要內容，使用短暫延遲後顯示頁面內容
-            setTimeout(() => {
-              if (!document.body.classList.contains("video-loaded")) {
-                document.body.classList.add("video-loaded");
-              }
-            }, 150);
-          });
-
+          // 監聽影片載入事件 - 簡化版本
           this.videoElement.addEventListener("loadeddata", () => {
-            // 影片資料載入完成，開始淡入效果
+            // 影片資料載入完成，立即顯示
             this.videoElement.classList.add("loaded");
-            // 背景影片淡出載入背景
             document.body.classList.add("video-loaded");
           });
+
           this.videoElement.addEventListener("canplay", () => {
             // 確認影片已準備好可播放
-            this.videoElement.classList.add("loaded");
-            document.body.classList.add("video-loaded");
-
             this.videoElement.play().catch((e) => {});
           });
 
           this.videoElement.addEventListener("playing", () => {
-            // 確認載入動畫完成
-            this.videoElement.classList.add("loaded");
-            document.body.classList.add("video-loaded");
-
             // 預載下一個影片
             this.preloadNextVideo();
           });
@@ -1921,7 +1875,7 @@
           this.videoElement.style.visibility = "visible";
         }
 
-        // 載入指定影片 - 導入 HTTP Range Requests 支援
+        // 載入指定影片 - 優化版本，減少卡頓
         loadVideo(videoPath) {
           try {
             // 檢查檔案路徑
@@ -1930,14 +1884,12 @@
               return;
             }
 
-            // 重置載入狀態- 讓影片元素淡出
-            this.videoElement.classList.remove("loaded");
-
-            // 設定影片來源並設定 HTTP Range Requests 相關屬性
+            // 立即設定影片來源，不需要重置載入狀態
             this.videoElement.crossOrigin = "anonymous";
-            this.videoElement.preload = "metadata"; // 預載中繼資料
+            this.videoElement.preload = "auto"; // 改為自動預載以減少卡頓
+            this.videoElement.muted = true; // 確保靜音以避免自動播放限制
 
-            // 設定影片來源
+            // 直接設定影片來源
             this.videoElement.src = videoPath;
 
             // 使用 Range Requests 優化載入
@@ -1958,7 +1910,7 @@
           }
         }
 
-        // HTTP Range Requests 分段載入
+        // HTTP Range Requests 優化載入策略
         optimizeVideoLoading() {
           // 檢測網路連線速度並調整載入策略
           if ("connection" in navigator) {
@@ -1967,14 +1919,14 @@
               navigator.mozConnection ||
               navigator.webkitConnection;
             if (connection) {
-              // 根據網路速度調整載入策略
+              // 根據網路速度調整載入策略 - 更積極的預載
               switch (connection.effectiveType) {
                 case "slow-2g":
                 case "2g":
-                  this.videoElement.preload = "none";
+                  this.videoElement.preload = "metadata";
                   break;
                 case "3g":
-                  this.videoElement.preload = "metadata";
+                  this.videoElement.preload = "auto";
                   break;
                 case "4g":
                 default:
@@ -2036,20 +1988,29 @@
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
         }
 
-        // 預載下一個影片
+        // 預載下一個影片 - 優化版本
         preloadNextVideo() {
           const nextIndex =
             (this.currentIndex + 1) % this.shuffledVideos.length;
           const nextVideoPath = this.shuffledVideos[nextIndex];
 
+          // 如果已有預載元素，清理掉
           if (this.preloadElement) {
             this.preloadElement.remove();
           }
 
+          // 創建新的預載元素
           this.preloadElement = document.createElement("video");
           this.preloadElement.src = nextVideoPath;
           this.preloadElement.preload = "auto";
+          this.preloadElement.muted = true;
           this.preloadElement.style.display = "none";
+          this.preloadElement.style.position = "absolute";
+          this.preloadElement.style.visibility = "hidden";
+
+          // 立即開始載入但不播放
+          this.preloadElement.load();
+
           document.body.appendChild(this.preloadElement);
         }
       }
@@ -2184,13 +2145,8 @@
         },
       };
 
-      // 初始化函數
+      // 初始化函數 - 簡化版本，移除白霧效果
       function initializePage() {
-        // 快速顯示頁面內容，使用短暫延遲確保轉場效果
-        setTimeout(() => {
-          document.body.classList.add("video-loaded");
-        }, 100);
-
         // 設定語言
         updateLanguage();
 
@@ -2200,15 +2156,8 @@
         // 初始化背景影片管理器
         videoManager = new VideoBackgroundManager();
 
-        // 快速顯示模式下暫時超時保護，確保頁面內容能夠顯示
-        setTimeout(() => {
-          if (!document.body.classList.contains("video-loaded")) {
-            document.body.classList.add("video-loaded");
-            if (videoManager && videoManager.videoElement) {
-              videoManager.videoElement.classList.add("loaded");
-            }
-          }
-        }, 500);
+        // 立即顯示頁面內容，無需等待
+        document.body.classList.add("video-loaded");
 
         // 添加點擊事件來確保影片播放支援手動播放控制
         document.addEventListener("click", function enableVideoOnFirstClick() {
