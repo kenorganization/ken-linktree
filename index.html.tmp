@@ -19,7 +19,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <style>
-      /* 主體樣式 - 完全透明讓影片顯示*/
+      /* 主�??�樣�?- 完全?��?讓影?�顯�?*/
       body {
         background: transparent;
         transition: all 0.3s ease-in-out;
@@ -32,7 +32,7 @@
         overflow-x: hidden;
       }
 
-      /* 頁面載入時的背景 - 防止閃爍 */
+      /* ?�面載入?��??�景 - ?�止?��? */
       body::before {
         content: "";
         position: fixed;
@@ -50,13 +50,13 @@
         transition: opacity 0.2s ease-out;
       }
 
-      /* 影片載入完成後隱藏載入背景*/
+      /* 影�?載入完�?後隱?��??��???*/
       body.video-loaded::before {
         opacity: 0;
         pointer-events: none;
       }
 
-      /* 背景影片容器 */
+      /* ?�景影�?容器 */
       .background-video-container {
         position: fixed;
         top: 0;
@@ -69,7 +69,7 @@
         visibility: visible !important;
       }
 
-      /* 背景影片樣式 */
+      /* ?�景影�?�?? */
       .background-video {
         position: absolute;
         top: 50%;
@@ -86,12 +86,12 @@
         visibility: visible !important;
       }
 
-      /* 影片載入完成後顯示*/
+      /* 影�?載入完�?後顯�?*/
       .background-video.loaded {
         opacity: 1;
       }
 
-      /* 主容器樣式 - 完全居中設計 */
+      /* 主容?�樣�?- 完全居中設�? */
       .main-container {
         min-height: 100vh;
         display: flex;
@@ -102,7 +102,7 @@
         position: relative;
       }
 
-      /* 頭像容器 - 完全仿照 Linktree */
+      /* ?��?容器 - 完全仿照 Linktree */
       .avatar-container {
         margin-bottom: 1.5rem;
         position: relative;
@@ -129,7 +129,7 @@
         border: 2px solid white;
       }
 
-      /* 個人名稱 - 完全仿照 Linktree */
+      /* ?��?�?? - 完全仿照 Linktree */
       .profile-name {
         color: white;
         font-size: 2rem;
@@ -150,7 +150,7 @@
         max-width: 400px;
       }
 
-      /* 社群顯示 */
+      /* 社群?�示 */
       .social-icon {
         color: white;
         font-size: 1.75rem;
@@ -165,7 +165,7 @@
         opacity: 0.8;
       }
 
-      /* 連結按鈕樣式 - 質感透明版本 */
+      /* ????��?�?? - 質�??��??�本 */
       .link-btn {
         width: 100%;
         max-width: 400px;
@@ -226,7 +226,7 @@
         font-size: 1.1rem;
       }
 
-      /* 右上角控制按鈕*/
+      /* ?��?角�??��???*/
       .top-right-controls {
         position: fixed;
         top: 1.5rem;
@@ -237,7 +237,7 @@
         align-items: center;
       }
 
-      /* 分享按鈕樣式 */
+      /* ?�享?��?�?? */
       .share-btn {
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(20px);
@@ -265,7 +265,7 @@
         transition: all 0.1s ease;
       }
 
-      /* 選單按鈕樣式更新 */
+      /* ?�單?��?�???�新 */
       .menu-btn {
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(20px);
@@ -293,7 +293,7 @@
         transition: all 0.1s ease;
       }
 
-      /* 下拉選單樣式 - 現代設計*/
+      /* 下�??�單�?? - ?��??�代??*/
       .dropdown-menu {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(30px);
@@ -341,7 +341,7 @@
         text-align: center;
       }
 
-      /* 深色模式下的下拉選單 */
+      /* 深色模�?下�?下�??�單 */
       [data-theme="dark"] .dropdown-menu {
         background: rgba(31, 41, 55, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -356,7 +356,7 @@
         background: rgba(255, 255, 255, 0.1);
       }
 
-      /* 頁腳樣式 - 仿照 Linktree */
+      /* ?�腳�?? - 仿照 Linktree */
       .footer-container {
         margin-top: auto;
         padding-top: 3rem;
@@ -402,7 +402,7 @@
         margin-bottom: 1rem;
       }
 
-      /* Modal 樣式 - 現代設計*/
+      /* Modal �?? - ?�代?�設�?*/
       .modal-backdrop {
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(12px);
@@ -471,7 +471,7 @@
         color: #d1d5db;
       }
 
-      /* 隨機樣式系統 - 60 種色彩變化*/
+      /* ?��?�??系統 - 60 種色彩�???*/
       .style-pure-red {
         background: rgba(239, 68, 68, 0.9) !important;
         color: white !important;
@@ -593,7 +593,7 @@
         color: black !important;
       }
 
-      /* 混色及特效樣式*/
+      /* 混色?�特?�樣�?*/
       .style-gradient-sunset {
         background: linear-gradient(135deg, #ff6b6b, #ffa500) !important;
         color: white !important;
@@ -744,7 +744,7 @@
         animation: wave-effect 4.5s ease-in-out infinite !important;
       }
 
-      /* 動畫關鍵幀定義 */
+      /* ?�畫?�鍵幀定義 */
       @keyframes breathe-red {
         0%,
         100% {
@@ -986,7 +986,7 @@
         }
       }
 
-      /* 隨機樣式覆蓋 */
+      /* ?��?�??覆�? */
       .random-style-active .profile-name,
       .random-style-active .profile-bio,
       .random-style-active .social-icon,
@@ -997,13 +997,13 @@
           0 0 30px currentColor !important;
       }
 
-      /* 瘋狂動畫模式 - 隨機位置偏移效果*/
+      /* ?��??�畫模�? - ?��??��??�移?��???*/
       .crazy-animation {
         position: relative !important;
         z-index: 10 !important;
       }
 
-      /* 隨機眩光效果 */
+      /* ?��??��??��? */
       .glow-random-1 {
         box-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff0080 !important;
         animation: random-glow-1 1.5s ease-in-out infinite alternate !important;
@@ -1054,7 +1054,7 @@
         animation: random-glow-10 1.35s ease-in-out infinite alternate !important;
       }
 
-      /* 隨機眩光動畫關鍵幀 */
+      /* ?��??��??�畫?�鍵幀 */
       @keyframes random-glow-1 {
         0% {
           box-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080;
@@ -1167,8 +1167,8 @@
         }
       }
 
-      /* 響應式設計 - 全面適配版本 */
-      /* 超小螢幕 (< 480px) */
+      /* ?��?式設�?- ?�面?��??�本 */
+      /* 超�??��? (< 480px) */
       @media (max-width: 479px) {
         .main-container {
           padding: 2.5rem 1rem 1.5rem;
@@ -1228,7 +1228,7 @@
         }
       }
 
-      /* 小螢幕手機(480px - 640px) */
+      /* 小螢幕�?�?(480px - 640px) */
       @media (min-width: 480px) and (max-width: 640px) {
         .main-container {
           padding: 3rem 1.25rem 1.5rem;
@@ -1285,7 +1285,7 @@
         }
       }
 
-      /* 大螢幕手機小平板(641px - 768px) */
+      /* 大螢幕�?�?小平??(641px - 768px) */
       @media (min-width: 641px) and (max-width: 768px) {
         .main-container {
           padding: 3.5rem 2rem 2rem;
@@ -1321,7 +1321,7 @@
         }
       }
 
-      /* 平板電腦 (769px - 1024px) */
+      /* 平板?�腦 (769px - 1024px) */
       @media (min-width: 769px) and (max-width: 1024px) {
         .main-container {
           padding: 4rem 3rem 2.5rem;
@@ -1360,7 +1360,7 @@
         }
       }
 
-      /* 桌面小螢幕(1025px - 1366px) */
+      /* 桌�?小螢�?(1025px - 1366px) */
       @media (min-width: 1025px) and (max-width: 1366px) {
         .main-container {
           padding: 4.5rem 2rem 3rem;
@@ -1391,7 +1391,7 @@
         }
       }
 
-      /* 大型機螢幕(> 1366px) */
+      /* 大�?機螢�?(> 1366px) */
       @media (min-width: 1367px) {
         .main-container {
           padding: 5rem 2rem 3rem;
@@ -1426,133 +1426,10 @@
           margin-bottom: 3rem;
         }
       }
-
-      /* 下雨動畫系統 */
-      .rain-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1000;
-        overflow: hidden;
-      }
-
-      .raindrop {
-        position: absolute;
-        width: 2px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.6) 0%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-        animation: fall linear infinite;
-        border-radius: 1px;
-      }
-
-      .rain-icon {
-        position: absolute;
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.7);
-        animation: fall linear infinite;
-        text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
-      }
-
-      @keyframes fall {
-        0% {
-          transform: translateY(-100px);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(100vh);
-          opacity: 0;
-        }
-      }
-
-      /* 下雨控制按鈕 */
-      .rain-btn {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: white;
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        position: relative;
-      }
-
-      .rain-btn:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: scale(1.05);
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
-      }
-
-      .rain-btn:active {
-        transform: scale(0.98);
-        transition: all 0.1s ease;
-      }
-
-      .rain-btn.active {
-        background: rgba(74, 144, 226, 0.3);
-        border-color: rgba(74, 144, 226, 0.5);
-      }
-
-      /* 下雨模式選擇器 */
-      .rain-mode-selector {
-        position: absolute;
-        top: 50px;
-        right: 0;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
-        padding: 8px;
-        min-width: 150px;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
-        z-index: 1001;
-      }
-
-      .rain-mode-selector.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-      }
-
-      .rain-mode-item {
-        display: block;
-        width: 100%;
-        padding: 8px 12px;
-        background: none;
-        border: none;
-        color: white;
-        text-align: left;
-        cursor: pointer;
-        border-radius: 4px;
-        font-size: 14px;
-        transition: background 0.2s ease;
-      }
-
-      .rain-mode-item:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .rain-mode-item.active {
-        background: rgba(74, 144, 226, 0.3);
-      }
     </style>
   </head>
   <body>
-    <!-- 背景影片容器 -->
+    <!-- ?�景影�?容器 -->
     <div class="background-video-container">
       <video
         id="backgroundVideo"
@@ -1568,57 +1445,23 @@
           src="src/background-media/4108992-sd_540_676_30fps.mp4"
           type="video/mp4"
         />
-        <!-- 備用影片來源 -->
+        <!-- ?�用影�?來�? -->
         <source
           src="src/background-media/5178597-sd_320_568_24fps.mp4"
           type="video/mp4"
         />
-        您的瀏覽器不支援 HTML5 影片播放。
+        ?��??�覽?��??�援 HTML5 影�??�放??
       </video>
     </div>
 
-    <!-- 右上角控制按鈕-->
+    <!-- ?��?角控?��??��???-->
     <div class="top-right-controls">
-      <!-- 下雨按鈕 -->
-      <div class="dropdown dropdown-end">
-        <button
-          class="rain-btn"
-          onclick="toggleRainSelector()"
-          title="下雨模式"
-        >
-          <i class="fas fa-cloud-rain"></i>
-        </button>
-        <div class="rain-mode-selector" id="rainModeSelector">
-          <button
-            class="rain-mode-item"
-            onclick="setRainMode('off')"
-            id="rain-off"
-          >
-            關閉下雨
-          </button>
-          <button
-            class="rain-mode-item"
-            onclick="setRainMode('normal')"
-            id="rain-normal"
-          >
-            普通雨滴
-          </button>
-          <button
-            class="rain-mode-item active"
-            onclick="setRainMode('icons')"
-            id="rain-icons"
-          >
-            隨機圖示雨
-          </button>
-        </div>
-      </div>
-
-      <!-- 分享按鈕 -->
-      <button class="share-btn" onclick="showShareModal()" title="分享此頁面">
+      <!-- ?�享?��? -->
+      <button class="share-btn" onclick="showShareModal()" title="?�享此�???>
         <i class="fas fa-share-alt"></i>
       </button>
 
-      <!-- 選單按鈕 -->
+      <!-- ?�單?��? -->
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="menu-btn">
           <i class="fas fa-ellipsis-v"></i>
@@ -1627,7 +1470,7 @@
           <li>
             <button class="dropdown-item" onclick="toggleRandomStyle()">
               <i class="fas fa-palette" id="styleIcon"></i>
-              <span id="styleText">隨機樣式</span>
+              <span id="styleText">?��?�??</span>
             </button>
           </li>
           <li>
@@ -1639,39 +1482,39 @@
           <li>
             <button class="dropdown-item" onclick="window.location.reload()">
               <i class="fas fa-sync-alt"></i>
-              <span id="refreshText">重新載入</span>
+              <span id="refreshText">?�新?��?</span>
             </button>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- 主要內容 -->
+    <!-- 主�??�容 -->
     <div class="main-container">
-      <!-- 頭像 -->
+      <!-- ?��? -->
       <div class="avatar-container">
         <div class="avatar-ring">
           <img
             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-            alt="Ken 的頭像"
+            alt="Ken ?�頭??
             class="avatar-image"
           />
         </div>
       </div>
 
-      <!-- 姓名及簡介-->
+      <!-- 姓�??�簡�?-->
       <h1 class="profile-name" id="profileName">Ken</h1>
       <p class="profile-bio" id="profileBio">
-        歡迎來到我的個人連結頁面！<br />
-        在這裡可以找到我的所有社群媒體和重要連結。
+        歡�?來到?��??�人????�面�?br />
+        ?�這裡?�以?�到?��??��?社群媒�??��?要�????
       </p>
 
-      <!-- 社群顯示 -->
+      <!-- 社群?�示 -->
       <a href="https://github.com" class="social-icon mb-6" target="_blank">
         <i class="fab fa-github"></i>
       </a>
 
-      <!-- 連結按鈕 -->
+      <!-- ????��? -->
       <div class="w-full max-w-md space-y-3">
         <a href="https://github.com" class="link-btn" target="_blank">
           <i class="fab fa-github"></i>
@@ -1695,17 +1538,17 @@
 
         <a href="mailto:your.email@example.com" class="link-btn">
           <i class="fas fa-envelope"></i>
-          <span id="emailText">電子信件</span>
+          <span id="emailText">?��??�件</span>
         </a>
 
         <a href="https://your-website.com" class="link-btn" target="_blank">
           <i class="fas fa-globe"></i>
-          <span id="websiteText">個人網站</span>
+          <span id="websiteText">?�人網�?</span>
         </a>
 
         <a href="https://your-blog.com" class="link-btn" target="_blank">
           <i class="fas fa-blog"></i>
-          <span id="blogText">部落格</span>
+          <span id="blogText">?�落??/span>
         </a>
 
         <a href="https://youtube.com" class="link-btn" target="_blank">
@@ -1714,23 +1557,23 @@
         </a>
       </div>
 
-      <!-- 頁腳 -->
+      <!-- ?�腳 -->
       <div class="footer-container">
         <div class="footer-links">
-          <a href="#" class="footer-link" id="privacyText">隱私政策</a>
-          <span class="footer-separator">|</span>
+          <a href="#" class="footer-link" id="privacyText">?��??��?</a>
+          <span class="footer-separator">??/span>
           <a href="#" class="footer-link" id="termsText">使用條款</a>
-          <span class="footer-separator">|</span>
-          <a href="#" class="footer-link" id="cookiesText">Cookie 政策</a>
+          <span class="footer-separator">??/span>
+          <a href="#" class="footer-link" id="cookiesText">Cookie ?��?</a>
         </div>
         <div class="footer-brand" id="poweredText">Powered by Ken</div>
         <div class="footer-copyright" id="copyrightText">
-          © 2024 Ken. 版權所有
+          © 2024 Ken. ?��??�??
         </div>
       </div>
     </div>
 
-    <!-- 分享 Modal -->
+    <!-- ?�享 Modal -->
     <dialog id="shareModal" class="modal">
       <div class="modal-backdrop"></div>
       <div class="modal-box">
@@ -1741,7 +1584,7 @@
             <i class="fas fa-times"></i>
           </button>
         </form>
-        <h3 class="font-bold text-lg mb-4" id="shareModalTitle">分享此頁面</h3>
+        <h3 class="font-bold text-lg mb-4" id="shareModalTitle">?�享此�???/h3>
         <div class="share-grid">
           <div class="share-item" onclick="shareVia('facebook')">
             <div class="share-icon" style="background: #1877f2">
@@ -1789,7 +1632,7 @@
             <div class="share-icon" style="background: #ea4335">
               <i class="fas fa-envelope"></i>
             </div>
-            <span class="share-label" id="emailShareText">電子信件</span>
+            <span class="share-label" id="emailShareText">?��??�件</span>
           </div>
         </div>
       </div>
@@ -1797,7 +1640,7 @@
 
     <!-- JavaScript -->
     <script>
-      // 背景影片管理系統 - 使用 Fisher-Yates 洗牌演算法
+      // ?�景影�?管�?系統 - 使用 Fisher-Yates 洗�?演�?�?
       class VideoBackgroundManager {
         constructor() {
           this.videos = [
@@ -1842,35 +1685,42 @@
           this.shuffledVideos = [...this.videos];
           this.currentIndex = 0;
           this.videoElement = document.getElementById("backgroundVideo");
-          this.preloadElement = null; // 預載影片元素
+          this.preloadElement = null; // ?��?影�??��?
 
           this.fisherYatesShuffle();
           this.initializeVideo();
         }
 
-        // Fisher-Yates 洗牌演算法實現
+        // Fisher-Yates 洗�?演�?法實??
         fisherYatesShuffle() {
+
           const array = this.shuffledVideos;
 
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
           }
+
+
         }
 
-        // 初始化影片播放器
+        // ?��??�影?�播?�器
         initializeVideo() {
           if (!this.videoElement) {
-            console.error("找不到影片元素");
+            console.error("?��??��??�影?��?�?);
             return;
           }
 
-          // 設定第一個影片
+
+
+
+          // 設�??��?影�?
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
 
-          // 監聽影片載入事件
+          // ??��影�?載入?��?
           this.videoElement.addEventListener("loadstart", () => {
-            // 快速顯示主要內容，使用短暫延遲後顯示頁面內容
+
+            // 快速�??��??��??�暫延遲後顯示�??�內�?
             setTimeout(() => {
               if (!document.body.classList.contains("video-loaded")) {
                 document.body.classList.add("video-loaded");
@@ -1879,95 +1729,120 @@
           });
 
           this.videoElement.addEventListener("loadeddata", () => {
-            // 影片資料載入完成，開始淡入效果
+
+            // 影�?資�?載入完�?，�?始淡?��???
             this.videoElement.classList.add("loaded");
-            // 背景影片淡出載入背景
+            // ?��??��?淡出載入?�景
             document.body.classList.add("video-loaded");
           });
+
           this.videoElement.addEventListener("canplay", () => {
-            // 確認影片已準備好可播放
+
+            // 確�?影�?已�??��??��?�?
             this.videoElement.classList.add("loaded");
             document.body.classList.add("video-loaded");
 
-            this.videoElement.play().catch((e) => {});
+            this.videoElement.play().catch((e) => {
+
+            });
           });
 
           this.videoElement.addEventListener("playing", () => {
-            // 確認載入動畫完成
+
+            // 確�?載入?��?完�?
             this.videoElement.classList.add("loaded");
             document.body.classList.add("video-loaded");
 
-            // 預載下一個影片
+            // ?��??��?下�??�影??
             this.preloadNextVideo();
           });
 
-          // 監聽影片結束事件
+          // ??��影�?結�?事件
           this.videoElement.addEventListener("ended", () => {
+
             this.playNextVideo();
           });
 
-          // 監聽影片載入錯誤
+          // ??��影�?載入?�誤
           this.videoElement.addEventListener("error", (e) => {
             console.error(
-              "影片載入失敗:",
+              "影�?載入失�?:",
               this.shuffledVideos[this.currentIndex],
               e
             );
             this.playNextVideo();
           });
 
-          // 強制顯示影片元素
+          // 強制顯示影�??��?
           this.videoElement.style.display = "block";
           this.videoElement.style.visibility = "visible";
+
+
         }
 
-        // 載入指定影片 - 導入 HTTP Range Requests 支援
+        // 載入?��?影�? - ?�入 HTTP Range Requests ?�援
         loadVideo(videoPath) {
           try {
-            // 檢查檔案路徑
+
+
+            // 檢查檔�?路�?
             if (!videoPath || videoPath.trim() === "") {
-              console.error("影片路徑為空");
+              console.error("影�?路�??�空");
               return;
             }
 
-            // 重置載入狀態- 讓影片元素淡出
+            // ?�置載入?�??- ?��?影�??��?淡出
             this.videoElement.classList.remove("loaded");
 
-            // 設定影片來源並設定 HTTP Range Requests 相關屬性
+            // 設�?影�?來�??��?設�? HTTP Range Requests ?��?屬�?
             this.videoElement.crossOrigin = "anonymous";
-            this.videoElement.preload = "metadata"; // 預載中繼資料
+            this.videoElement.preload = "metadata"; // ?��??��??��?
 
-            // 設定影片來源
+            // 設�?影�?來�?
             this.videoElement.src = videoPath;
 
-            // 使用 Range Requests 優化載入
+            // 顯示影�??��??�當?��???
+            console.log("影�??��?�??:", {
+              display: this.videoElement.style.display,
+              visibility: this.videoElement.style.visibility,
+              opacity: this.videoElement.style.opacity,
+              zIndex: window.getComputedStyle(this.videoElement).zIndex,
+            });
+
+            // 使用 Range Requests ?��?載入
             this.optimizeVideoLoading();
 
             this.videoElement.load();
 
-            // 確保容器存在
+            // 確�?容器?��?
             const container = document.querySelector(
               ".background-video-container"
             );
             if (container) {
               container.style.display = "block";
+              console.log("影�?容器?�??", {
+                display: container.style.display,
+                zIndex: window.getComputedStyle(container).zIndex,
+              });
             }
           } catch (error) {
-            console.error("載入影片時發生錯誤", error);
+            console.error("載入影�??�發?�錯�?", error);
             this.playNextVideo();
           }
         }
 
-        // HTTP Range Requests 分段載入
+        // HTTP Range Requests ?��?載入
         optimizeVideoLoading() {
-          // 檢測網路連線速度並調整載入策略
+          // 檢測網路????�度並調?��??��???
           if ("connection" in navigator) {
             const connection =
               navigator.connection ||
               navigator.mozConnection ||
               navigator.webkitConnection;
             if (connection) {
-              // 根據網路速度調整載入策略
+
+
+              // ?��?網路?�度調整?��?策略
               switch (connection.effectiveType) {
                 case "slow-2g":
                 case "2g":
@@ -1984,18 +1859,19 @@
             }
           }
 
-          // 設定 HTTP Headers 支援 Range Requests
+          // 設�? HTTP Headers ?�援 Range Requests
           const video = this.videoElement;
 
-          // 優化載入速度，實現分段載入
+          // ??��載入?�度，實?��?段�???
           video.addEventListener("progress", () => {
             if (video.buffered.length > 0) {
               const bufferedEnd = video.buffered.end(video.buffered.length - 1);
               const duration = video.duration;
               if (duration > 0) {
                 const percent = (bufferedEnd / duration) * 100;
+                console.log(`影�?載入?�度: ${percent.toFixed(1)}%`);
 
-                // 如果有足夠內容就就開始播放和載入進度通知
+                // ?��??�足夠內容�?就�?始播?��??��?載入?�度?�知
                 if (percent > 25 && !video.classList.contains("loaded")) {
                   video.classList.add("loaded");
                   document.body.classList.add("video-loaded");
@@ -2004,39 +1880,43 @@
             }
           });
 
-          // 確保載入完成
+          // ?��?載入?��?
           video.addEventListener("loadedmetadata", () => {
-            // 載入前幾秒內容以快速開始播放
+
+            // 載入?�幾秒�??�容以快?��?始播??
             video.currentTime = 0;
           });
         }
 
-        // 播放下一個影片
+        // ?�放下�??�影??
         playNextVideo() {
           this.currentIndex =
             (this.currentIndex + 1) % this.shuffledVideos.length;
 
-          // 如果播放完所有影片就重新洗牌
+          // 如�??�放完�??�影?��??�新洗�?
           if (this.currentIndex === 0) {
+
             this.fisherYatesShuffle();
           }
 
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
         }
 
-        // 預載下一個影片
+        // ?��??��??��?一?�影??
         skipToNext() {
+
           this.playNextVideo();
         }
 
-        // 重新洗牌影片列表
+        // ?�新洗�?影�??��?
         reshuffleVideos() {
+
           this.fisherYatesShuffle();
           this.currentIndex = 0;
           this.loadVideo(this.shuffledVideos[this.currentIndex]);
         }
 
-        // 預載下一個影片
+        // ?��?下�??�影??
         preloadNextVideo() {
           const nextIndex =
             (this.currentIndex + 1) % this.shuffledVideos.length;
@@ -2051,17 +1931,19 @@
           this.preloadElement.preload = "auto";
           this.preloadElement.style.display = "none";
           document.body.appendChild(this.preloadElement);
+
+
         }
       }
 
-      // 全域變數
+      // ?��?變數
       let currentLang = localStorage.getItem("language") || "zh";
       let currentStyleMode = localStorage.getItem("styleMode") || "normal";
       let videoManager;
 
-      // 60 種隨機樣式配色
+      // 60 種隨機樣式�?�?
       const randomStyles = [
-        // 30 種純色
+        // 30 種�???
         "style-pure-red",
         "style-pure-pink",
         "style-pure-purple",
@@ -2093,7 +1975,7 @@
         "style-pure-coral",
         "style-pure-turquoise",
 
-        // 30 種混合漸層效果
+        // 30 種混?��??��?
         "style-gradient-sunset",
         "style-gradient-ocean",
         "style-gradient-forest",
@@ -2126,41 +2008,41 @@
         "style-wave-dream",
       ];
 
-      // 多語言內容
+      // 多�?言?�容
       const translations = {
         zh: {
           profileName: "Ken",
           profileBio:
-            "歡迎來到我的個人連結頁面！<br />在這裡可以找到我所有社群媒體的重要連結，包括技術項目、社交平台和聯絡方式！",
-          styleText: "隨機樣式",
+            "歡�?來到?��??�人????�面�?br />?�這裡?�以?�到?��??��?社群媒�??��?要�????,
+          styleText: "?��?�??",
           langText: "English",
-          refreshText: "重新整理",
+          refreshText: "?�新?��?",
           githubText: "GitHub",
           linkedinText: "LinkedIn",
           twitterText: "Twitter",
           instagramText: "Instagram",
-          emailText: "電子信件",
-          websiteText: "個人網站",
-          blogText: "部落格",
+          emailText: "?��??�件",
+          websiteText: "?�人網�?",
+          blogText: "?�落??,
           youtubeText: "YouTube",
-          privacyText: "隱私政策",
+          privacyText: "?��??��?",
           termsText: "使用條款",
-          cookiesText: "Cookie 政策",
+          cookiesText: "Cookie ?��?",
           poweredText: "Powered by Ken",
-          copyrightText: "© 2025 Ken. 版權所有",
-          shareModalTitle: "分享此頁面",
+          copyrightText: "© 2024 Ken. ?��??�??",
+          shareModalTitle: "?�享此�???,
           copyLinkText: "複製???",
-          emailShareText: "電子信件",
-          linkCopied: "連結已複製到剪貼簿！",
-          copyFailed: "複製失敗，請手動複製",
-          sharedSuccess: "分享成功！",
+          emailShareText: "?��??�件",
+          linkCopied: "???已�?製到?�貼簿�?",
+          copyFailed: "複製失�?，�??��?複製",
+          sharedSuccess: "?�享?��?�?,
         },
         en: {
           profileName: "Ken",
           profileBio:
             "Welcome to my personal link page!<br />Find all my social media and important links here.",
           styleText: "Random Style",
-          langText: "中文",
+          langText: "中�?",
           refreshText: "Refresh",
           githubText: "GitHub",
           linkedinText: "LinkedIn",
@@ -2184,25 +2066,29 @@
         },
       };
 
-      // 初始化函數
+      // ?��??��???
       function initializePage() {
-        // 快速顯示頁面內容，使用短暫延遲確保轉場效果
+
+
+        // 快速顯示�??�內容�?使用?�暫延遲?��?轉場?��?
         setTimeout(() => {
           document.body.classList.add("video-loaded");
+
         }, 100);
 
-        // 設定語言
+        // 設�?語�?
         updateLanguage();
 
-        // 設定隨機樣式模式
+        // 設�??��?�??模�?
         updateStyleMode();
 
-        // 初始化背景影片管理器
+        // ?��??��??�影?�管?�器
         videoManager = new VideoBackgroundManager();
 
-        // 快速顯示模式下暫時超時保護，確保頁面內容能夠顯示
+        // 快速�??�模式�??�暫超�?保護，確保�??�內容能夠顯�?
         setTimeout(() => {
           if (!document.body.classList.contains("video-loaded")) {
+
             document.body.classList.add("video-loaded");
             if (videoManager && videoManager.videoElement) {
               videoManager.videoElement.classList.add("loaded");
@@ -2210,41 +2096,56 @@
           }
         }, 500);
 
-        // 添加點擊事件來確保影片播放支援手動播放控制
+        // 添�?點�?事件來�??�影?�播?��?�?��?��??�放?�制�?
         document.addEventListener("click", function enableVideoOnFirstClick() {
           if (videoManager && videoManager.videoElement) {
             videoManager.videoElement
               .play()
-              .then(() => {})
-              .catch((e) => {});
-            // 移除事件監聽器，確保只執行一次
+              .then(() => {
+
+              })
+              .catch((e) => {
+
+              });
+            // 移除事件??��?��??��?要執行�?�?
             document.removeEventListener("click", enableVideoOnFirstClick);
           }
         });
+
+
+
       }
 
-      // 切換隨機樣式模式
+      // ?��??��?�??模�?
       function toggleRandomStyle() {
         if (currentStyleMode === "normal") {
           currentStyleMode = "random";
           applyRandomStyles();
+          console.log(
+            currentLang === "zh"
+              ? "已�??�隨機樣式模式�?"
+              : "Random style mode activated!"
+          );
         } else {
           currentStyleMode = "normal";
           clearRandomStyles();
+          console.log(
+            currentLang === "zh" ? "已恢復基礎樣�? : "Back to normal style"
+          );
         }
         localStorage.setItem("styleMode", currentStyleMode);
         updateStyleIcon();
       }
 
-      // 套用隨機樣式
+      // ?�用?��?�??
       function applyRandomStyles() {
-        // 為每個按鈕套用隨機樣式和動畫
+        // ?��??��??��??�隨機樣式�??��??�畫
         const buttons = document.querySelectorAll(".link-btn");
         buttons.forEach((button) => {
           const randomStyle =
             randomStyles[Math.floor(Math.random() * randomStyles.length)];
 
-          // 隨機眩光效果
+          // ?��??��??��?
           const glowClasses = [
             "glow-random-1",
             "glow-random-2",
@@ -2260,7 +2161,7 @@
           const randomGlow =
             glowClasses[Math.floor(Math.random() * glowClasses.length)];
 
-          // Animate.css 動畫效果
+          // Animate.css ?�畫?��?
           const animateClasses = [
             "animate__animated animate__bounce",
             "animate__animated animate__flash",
@@ -2293,7 +2194,7 @@
           const randomAnimation =
             animateClasses[Math.floor(Math.random() * animateClasses.length)];
 
-          // 隨機動畫持續時間
+          // ?��??�畫?��??��?
           const durations = [
             "animate__slow",
             "animate__slower",
@@ -2303,7 +2204,7 @@
           const randomDuration =
             durations[Math.floor(Math.random() * durations.length)];
 
-          // 隨機無限循環機率
+          // ?��??��??��?
           const infiniteChance = Math.random() > 0.5 ? "animate__infinite" : "";
 
           button.className =
@@ -2313,19 +2214,19 @@
             ) +
             ` ${randomStyle} ${randomGlow} ${randomAnimation} ${randomDuration} ${infiniteChance} crazy-animation`;
 
-          // 隨機位置微調
-          const randomX = (Math.random() - 0.5) * 10; // -5px 到 5px
-          const randomY = (Math.random() - 0.5) * 10; // -5px 到 5px
+          // ?��?位置微調
+          const randomX = (Math.random() - 0.5) * 10; // -5px ??5px
+          const randomY = (Math.random() - 0.5) * 10; // -5px ??5px
           button.style.transform = `translate(${randomX}px, ${randomY}px)`;
         });
 
-        // 為控制按鈕套用隨機樣式和動畫
+        // ?�控?��??��??�隨機樣式�??�畫
         const controlBtns = document.querySelectorAll(".share-btn, .menu-btn");
         controlBtns.forEach((btn) => {
           const randomStyle =
             randomStyles[Math.floor(Math.random() * randomStyles.length)];
 
-          // 隨機眩光效果選擇
+          // ?��??��??��?
           const glowClasses = [
             "glow-random-1",
             "glow-random-2",
@@ -2341,7 +2242,7 @@
           const randomGlow =
             glowClasses[Math.floor(Math.random() * glowClasses.length)];
 
-          // 瘋狂 Animate.css 效果
+          // ?��? Animate.css ?��?
           const shakeAnimations = [
             "animate__animated animate__shake animate__infinite animate__faster",
             "animate__animated animate__headShake animate__infinite animate__slow",
@@ -2364,13 +2265,13 @@
               ""
             ) + ` ${randomStyle} ${randomGlow} ${randomShake} crazy-animation`;
 
-          // 隨機位置微調
-          const randomX = (Math.random() - 0.5) * 8; // -4px 到 4px
-          const randomY = (Math.random() - 0.5) * 8; // -4px 到 4px
+          // ?��?位置微調
+          const randomX = (Math.random() - 0.5) * 8; // -4px ??4px
+          const randomY = (Math.random() - 0.5) * 8; // -4px ??4px
           btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         });
 
-        // 為文字元素添加隨機色彩和動畫
+        // ?��?字�?素添?�隨機�??��???
         document.body.classList.add("random-style-active");
 
         const textElements = [
@@ -2421,7 +2322,7 @@
               colors[Math.floor(Math.random() * colors.length)];
             element.style.color = randomColor;
 
-            // 為文字添加隨機色彩和動畫
+            // ?��?字添?�隨機�??��???
             const textAnimations = [
               "animate__animated animate__pulse animate__infinite animate__slower",
               "animate__animated animate__flash animate__infinite animate__slow",
@@ -2438,33 +2339,26 @@
         });
       }
 
-      // 清除隨機樣式
+      // 清除?��?�??
       function clearRandomStyles() {
-        // 清除按鈕樣式
+        // 清除?��?�??
         const allButtons = document.querySelectorAll(
           ".link-btn, .share-btn, .menu-btn"
         );
         allButtons.forEach((button) => {
-          // 移除所有樣式、眩光和動畫類別
+          // 移除?�?�樣式、眩?��??�畫類別
           button.className = button.className.replace(
             /style-[\w-]+|glow-random-\d+|animate__\S+|crazy-animation/g,
             ""
           );
-          // 清除所有內聯樣式
           button.style.removeProperty("background");
           button.style.removeProperty("color");
           button.style.removeProperty("animation");
           button.style.removeProperty("box-shadow");
           button.style.removeProperty("transform");
-          button.style.removeProperty("border");
-          button.style.removeProperty("filter");
-          button.style.removeProperty("text-shadow");
-
-          // 完全重置 transform，確保位置恢復正常
-          button.style.transform = "";
         });
 
-        // 清除文字元素樣式
+        // 清除?��?�???��???
         document.body.classList.remove("random-style-active");
         const textElements = document.querySelectorAll(
           ".profile-name, .profile-bio, .social-icon, .footer-link, .footer-brand, .footer-copyright"
@@ -2473,26 +2367,10 @@
           element.className = element.className.replace(/animate__\S+/g, "");
           element.style.removeProperty("color");
           element.style.removeProperty("animation");
-          element.style.removeProperty("text-shadow");
-          element.style.removeProperty("filter");
-        });
-
-        // 清除所有可能殘留的動畫樣式
-        const allElements = document.querySelectorAll("*");
-        allElements.forEach((element) => {
-          if (
-            element.style.transform &&
-            element.style.transform.includes("translate")
-          ) {
-            element.style.transform = element.style.transform.replace(
-              /translate\([^)]*\)/g,
-              ""
-            );
-          }
         });
       }
 
-      // 更新樣式圖示顯示
+      // ?�新�???��??�示
       function updateStyleIcon() {
         const styleIcon = document.getElementById("styleIcon");
         const styleText = document.getElementById("styleText");
@@ -2500,19 +2378,19 @@
         if (currentStyleMode === "random") {
           styleIcon.className = "fas fa-magic";
           styleText.textContent =
-            currentLang === "zh" ? "普通樣式" : "Normal Style";
+            currentLang === "zh" ? "?��?�??" : "Normal Style";
         } else {
           styleIcon.className = "fas fa-palette";
           styleText.textContent =
-            currentLang === "zh" ? "隨機樣式" : "Random Style";
+            currentLang === "zh" ? "?��?�??" : "Random Style";
         }
       }
 
-      // 更新樣式模式
+      // ?�新�??模�?
       function updateStyleMode() {
         if (currentStyleMode === "random") {
           applyRandomStyles();
-          // 每3秒自動更新一次隨機樣式
+          // �?3 秒自?�更?��?次隨機樣�?
           setInterval(() => {
             if (currentStyleMode === "random") {
               applyRandomStyles();
@@ -2522,15 +2400,19 @@
         updateStyleIcon();
       }
 
-      // 切換語言
+      // ?��?語�?
       function toggleLanguage() {
         currentLang = currentLang === "zh" ? "en" : "zh";
         localStorage.setItem("language", currentLang);
         updateLanguage();
         updateStyleIcon();
+
+        console.log(
+          currentLang === "zh" ? "已�??�到繁�?中�?" : "Switched to English"
+        );
       }
 
-      // 更新語言內容
+      // ?�新語�??�容
       function updateLanguage() {
         const texts = translations[currentLang];
 
@@ -2546,15 +2428,15 @@
         });
       }
 
-      // 顯示分享模態框
+      // 顯示?�享模�?�?
       function showShareModal() {
         document.getElementById("shareModal").showModal();
       }
 
-      // 分享功能
+      // ?�享?�能
       function shareVia(platform) {
         const url = window.location.href;
-        const title = "來看看Ken的個人連結頁面！";
+        const title = "來�???Ken ?�個人????�面�?;
 
         try {
           switch (platform) {
@@ -2616,19 +2498,22 @@
               copyToClipboard(url);
               return;
           }
+
+
           document.getElementById("shareModal").close();
         } catch (error) {
-          console.error("分享失敗:", error);
+          console.error("?�享失�?:", error);
         }
       }
 
-      // 複製到剪貼簿
+      // 複製?�剪貼簿
       async function copyToClipboard(text) {
         try {
           if (navigator.clipboard && window.isSecureContext) {
             await navigator.clipboard.writeText(text);
+
           } else {
-            // 備用方式
+            // ?�用?��?
             const textArea = document.createElement("textarea");
             textArea.value = text;
             textArea.style.position = "fixed";
@@ -2640,39 +2525,40 @@
 
             try {
               document.execCommand("copy");
+
             } catch (err) {
-              console.error("複製失敗，請手動複製");
+              console.error("複製失�?，�??��?複製");
             }
 
             document.body.removeChild(textArea);
           }
           document.getElementById("shareModal").close();
         } catch (error) {
-          console.error("複製失敗:", error);
+          console.error("複製失�?:", error);
         }
       }
 
-      // 鍵盤快捷鍵
+      // ?�盤快捷??
       document.addEventListener("keydown", function (e) {
-        // Ctrl/Cmd + K 開啟分享
+        // Ctrl/Cmd + K ?��??�享
         if ((e.ctrlKey || e.metaKey) && e.key === "k") {
           e.preventDefault();
           showShareModal();
         }
 
-        // Ctrl/Cmd + D 切換隨機樣式
+        // Ctrl/Cmd + D ?��??��?�??
         if ((e.ctrlKey || e.metaKey) && e.key === "d") {
           e.preventDefault();
           toggleRandomStyle();
         }
 
-        // Ctrl/Cmd + L 切換語言
+        // Ctrl/Cmd + L ?��?語�?
         if ((e.ctrlKey || e.metaKey) && e.key === "l") {
           e.preventDefault();
           toggleLanguage();
         }
 
-        // 空白鍵切換影片
+        // 空白?��??�影??
         if (e.key === " " && e.target === document.body) {
           e.preventDefault();
           if (videoManager) {
@@ -2681,192 +2567,38 @@
         }
       });
 
-      // 禁止右鍵選單（可選）
+      // ?�止?�鍵?�單（可?��?
       // document.addEventListener('contextmenu', e => e.preventDefault());
 
-      // 頁面載入完成後初始化
+      // ?�面載入完�?後�?始�?
       document.addEventListener("DOMContentLoaded", initializePage);
 
-      // 視窗大小改變時重新調整影片尺寸
+      // 視�?大�??��??��??�調?�影??
       window.addEventListener("resize", function () {
         if (videoManager && videoManager.videoElement) {
-          // 觸發重新計算影片尺寸
+          // 觸發?�新計�?影�?尺寸
           videoManager.videoElement.style.minWidth = "100%";
           videoManager.videoElement.style.minHeight = "100%";
         }
       });
 
-      // 頁面可見性改變事件監聽
+      // ?�面?��??��??��???
       document.addEventListener("visibilitychange", function () {
         if (videoManager && videoManager.videoElement) {
           if (document.hidden) {
             videoManager.videoElement.pause();
           } else {
-            videoManager.videoElement.play().catch((e) => {});
+            videoManager.videoElement.play().catch((e) => {
+
+            });
           }
         }
       });
 
-      // 下雨系統
-      let rainMode = "off"; // 'off', 'normal', 'icons'
-      let rainContainer = null;
-      let rainInterval = null;
 
-      // 50種隨機圖示
-      const rainIcons = [
-        "❤️",
-        "⭐",
-        "🌟",
-        "✨",
-        "💫",
-        "🌈",
-        "🦄",
-        "🍀",
-        "🌸",
-        "🌺",
-        "🌻",
-        "🌷",
-        "🌹",
-        "🌴",
-        "🎄",
-        "🍁",
-        "🍃",
-        "🌿",
-        "☘️",
-        "🍄",
-        "🎃",
-        "🎅",
-        "🎁",
-        "🎂",
-        "🎉",
-        "🎊",
-        "🎈",
-        "🎀",
-        "💝",
-        "💖",
-        "💕",
-        "💘",
-        "💗",
-        "💓",
-        "💌",
-        "💎",
-        "👑",
-        "🏆",
-        "🎯",
-        "🎲",
-        "🎪",
-        "🎭",
-        "🎨",
-        "🎵",
-        "🎶",
-        "🎸",
-        "🎤",
-        "🎧",
-        "📱",
-        "💻",
-      ];
-
-      function toggleRainSelector() {
-        const selector = document.getElementById("rainModeSelector");
-        selector.classList.toggle("show");
-      }
-
-      function setRainMode(mode) {
-        rainMode = mode;
-        const selector = document.getElementById("rainModeSelector");
-        const rainBtn = document.querySelector(".rain-btn");
-
-        // 更新UI狀態
-        document.querySelectorAll(".rain-mode-item").forEach((item) => {
-          item.classList.remove("active");
-        });
-        document.getElementById(`rain-${mode}`).classList.add("active");
-        selector.classList.remove("show");
-
-        // 停止當前下雨
-        if (rainInterval) {
-          clearInterval(rainInterval);
-          rainInterval = null;
-        }
-        if (rainContainer) {
-          rainContainer.remove();
-          rainContainer = null;
-        }
-
-        // 更新按鈕狀態
-        if (mode === "off") {
-          rainBtn.classList.remove("active");
-        } else {
-          rainBtn.classList.add("active");
-          startRain(mode);
-        }
-
-        localStorage.setItem("rainMode", mode);
-      }
-
-      function startRain(mode) {
-        // 創建下雨容器
-        rainContainer = document.createElement("div");
-        rainContainer.className = "rain-container";
-        document.body.appendChild(rainContainer);
-
-        // 根據模式創建雨滴
-        rainInterval = setInterval(
-          () => {
-            createRaindrop(mode);
-          },
-          mode === "normal" ? 50 : 100
-        ); // 普通雨滴更密集
-      }
-
-      function createRaindrop(mode) {
-        const drop = document.createElement("div");
-
-        if (mode === "normal") {
-          drop.className = "raindrop";
-          drop.style.height = Math.random() * 50 + 20 + "px";
-        } else {
-          drop.className = "rain-icon";
-          drop.textContent =
-            rainIcons[Math.floor(Math.random() * rainIcons.length)];
-          drop.style.fontSize = Math.random() * 10 + 12 + "px";
-        }
-
-        // 隨機位置
-        drop.style.left = Math.random() * 100 + "%";
-
-        // 隨機速度
-        const duration = Math.random() * 3 + 2; // 2-5秒
-        drop.style.animationDuration = duration + "s";
-
-        rainContainer.appendChild(drop);
-
-        // 動畫完成後移除元素
-        setTimeout(() => {
-          if (drop.parentNode) {
-            drop.parentNode.removeChild(drop);
-          }
-        }, duration * 1000);
-      }
-
-      // 點擊外部關閉選擇器
-      document.addEventListener("click", (e) => {
-        if (
-          !e.target.closest(".rain-btn") &&
-          !e.target.closest(".rain-mode-selector")
-        ) {
-          const selector = document.getElementById("rainModeSelector");
-          selector.classList.remove("show");
-        }
-      });
-
-      // 載入保存的下雨模式
-      window.addEventListener("load", () => {
-        const savedRainMode = localStorage.getItem("rainMode");
-        if (savedRainMode && savedRainMode !== "off") {
-          setRainMode(savedRainMode);
-        }
-      });
+      console.log(
+        "快捷?? Ctrl+K(?�享), Ctrl+D(?��?�??), Ctrl+L(語�?), 空白???��?影�?)"
+      );
     </script>
   </body>
 </html>
