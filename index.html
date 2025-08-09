@@ -56,14 +56,16 @@
         opacity: 0;
         background: linear-gradient(
           135deg,
-          #ffb6c1 0%,
-          /* 淺粉紅 */ #dda0dd 25%,
-          /* 淺紫色 */ #98fb98 50%,
-          /* 淺綠色 */ #f0e68c 75%,
-          /* 淺黃色 */ #ffb6c1 100% /* 回到淺粉紅 */
+          #f8d7da 0%,
+          /* 更淡的粉紅 */ #e6ccff 17%,
+          /* 淡紫色 */ #cce5ff 33%,
+          /* 淺藍色 */ #d1f2d1 50%,
+          /* 更淡的綠色 */ #fff2cc 67%,
+          /* 更淡的黃色 */ #f8d7da 83%,
+          /* 回到淡粉紅 */ #e6ccff 100% /* 結尾淡紫色 */
         );
-        transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
-        animation: macaron-gradient-shift 1s ease-in-out forwards;
+        transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: macaron-gradient-shift 1.5s ease-in-out forwards;
       }
 
       /* 顯示轉場動畫 */
@@ -76,66 +78,78 @@
         0% {
           background: linear-gradient(
             135deg,
-            #ffb6c1,
-            #dda0dd,
-            #98fb98,
-            #f0e68c,
-            #ffb6c1
+            #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff /* 淡紫色 */
           );
           opacity: 1;
         }
         20% {
           background: linear-gradient(
             135deg,
-            #dda0dd,
-            #98fb98,
-            #f0e68c,
-            #ffb6c1,
-            #dda0dd
+            #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff /* 淺藍色 */
           );
           opacity: 0.9;
         }
         40% {
           background: linear-gradient(
             135deg,
-            #98fb98,
-            #f0e68c,
-            #ffb6c1,
-            #dda0dd,
-            #98fb98
+            #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1 /* 淡綠色 */
           );
           opacity: 0.7;
         }
         60% {
           background: linear-gradient(
             135deg,
-            #f0e68c,
-            #ffb6c1,
-            #dda0dd,
-            #98fb98,
-            #f0e68c
+            #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc /* 淡黃色 */
           );
           opacity: 0.5;
         }
         80% {
           background: linear-gradient(
             135deg,
-            #ffb6c1,
-            #dda0dd,
-            #98fb98,
-            #f0e68c,
-            #ffb6c1
+            #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da /* 淡粉紅 */
           );
           opacity: 0.3;
         }
         100% {
           background: linear-gradient(
             135deg,
-            #dda0dd,
-            #98fb98,
-            #f0e68c,
-            #ffb6c1,
-            #dda0dd
+            #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
+            /* 淡綠色 */ #fff2cc,
+            /* 淡黃色 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff /* 淡紫色 */
           );
           opacity: 0;
         }
@@ -2023,13 +2037,13 @@
 
             // 開始新動畫
             transitionOverlay.style.animation =
-              "macaron-gradient-shift 1s ease-in-out forwards";
+              "macaron-gradient-shift 1.5s ease-in-out forwards";
             transitionOverlay.classList.add("show");
 
-            // 1秒後隱藏轉場
+            // 1.5秒後隱藏轉場
             setTimeout(() => {
               transitionOverlay.classList.remove("show");
-            }, 1000);
+            }, 1500);
           }
         }
 
@@ -2282,13 +2296,13 @@
             document.getElementById("macaronTransition");
           if (transitionOverlay) {
             transitionOverlay.style.animation =
-              "macaron-gradient-shift 1s ease-in-out forwards";
+              "macaron-gradient-shift 1.5s ease-in-out forwards";
             transitionOverlay.classList.add("show");
 
-            // 1秒後隱藏轉場
+            // 1.5秒後隱藏轉場
             setTimeout(() => {
               transitionOverlay.classList.remove("show");
-            }, 1000);
+            }, 1500);
           }
         }, 100); // 稍微延遲以確保DOM完全載入
 
