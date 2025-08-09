@@ -73,7 +73,7 @@
         opacity: 1;
       }
 
-      /* 馬卡龍漸層色彩動畫 */
+      /* 馬卡龍漸層色彩動畫 - 緩慢優雅版本 */
       @keyframes macaron-gradient-shift {
         0% {
           background: linear-gradient(
@@ -88,38 +88,38 @@
           );
           opacity: 1;
         }
-        20% {
-          background: linear-gradient(
-            135deg,
-            #e6ccff,
-            /* 淡紫色 */ #cce5ff,
-            /* 淺藍色 */ #d1f2d1,
-            /* 淡綠色 */ #fff2cc,
-            /* 淡黃色 */ #f8d7da,
-            /* 淡粉紅 */ #e6ccff,
-            /* 淡紫色 */ #cce5ff /* 淺藍色 */
-          );
-          opacity: 0.9;
-        }
         40% {
           background: linear-gradient(
             135deg,
-            #cce5ff,
-            /* 淺藍色 */ #d1f2d1,
-            /* 淡綠色 */ #fff2cc,
-            /* 淡黃色 */ #f8d7da,
-            /* 淡粉紅 */ #e6ccff,
-            /* 淡紫色 */ #cce5ff,
-            /* 淺藍色 */ #d1f2d1 /* 淡綠色 */
+            #f8d7da,
+            /* 淡粉紅 - 保持穩定 */ #e6ccff,
+            /* 淡紫色 - 保持穩定 */ #cce5ff,
+            /* 淺藍色 - 保持穩定 */ #d1f2d1,
+            /* 淡綠色 - 保持穩定 */ #fff2cc,
+            /* 淡黃色 - 保持穩定 */ #f8d7da,
+            /* 淡粉紅 - 保持穩定 */ #e6ccff /* 淡紫色 - 保持穩定 */
           );
-          opacity: 0.7;
+          opacity: 0.95;
         }
         60% {
           background: linear-gradient(
             135deg,
-            #d1f2d1,
+            #e6ccff,
+            /* 輕微色彩位移開始 */ #f8d7da,
+            /* 淡粉紅 */ #e6ccff,
+            /* 淡紫色 */ #cce5ff,
+            /* 淺藍色 */ #d1f2d1,
             /* 淡綠色 */ #fff2cc,
-            /* 淡黃色 */ #f8d7da,
+            /* 淡黃色 */ #f8d7da /* 淡粉紅 */
+          );
+          opacity: 0.8;
+        }
+        80% {
+          background: linear-gradient(
+            135deg,
+            #cce5ff,
+            /* 更明顯但仍緩慢的位移 */ #e6ccff,
+            /* 淡紫色 */ #f8d7da,
             /* 淡粉紅 */ #e6ccff,
             /* 淡紫色 */ #cce5ff,
             /* 淺藍色 */ #d1f2d1,
@@ -127,24 +127,24 @@
           );
           opacity: 0.5;
         }
-        80% {
+        90% {
           background: linear-gradient(
             135deg,
-            #fff2cc,
-            /* 淡黃色 */ #f8d7da,
+            #d1f2d1,
+            /* 最終階段的溫和變化 */ #cce5ff,
+            /* 淺藍色 */ #e6ccff,
+            /* 淡紫色 */ #f8d7da,
             /* 淡粉紅 */ #e6ccff,
             /* 淡紫色 */ #cce5ff,
-            /* 淺藍色 */ #d1f2d1,
-            /* 淡綠色 */ #fff2cc,
-            /* 淡黃色 */ #f8d7da /* 淡粉紅 */
+            /* 淺藍色 */ #d1f2d1 /* 淡綠色 */
           );
-          opacity: 0.3;
+          opacity: 0.2;
         }
         100% {
           background: linear-gradient(
             135deg,
             #f8d7da,
-            /* 淡粉紅 */ #e6ccff,
+            /* 回到起始色彩 */ #e6ccff,
             /* 淡紫色 */ #cce5ff,
             /* 淺藍色 */ #d1f2d1,
             /* 淡綠色 */ #fff2cc,
