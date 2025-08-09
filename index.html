@@ -45,6 +45,102 @@
         visibility: visible !important;
       }
 
+      /* 馬卡龍色轉場動畫覆蓋層 */
+      .macaron-transition-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0;
+        background: linear-gradient(
+          135deg,
+          #ffb6c1 0%,
+          /* 淺粉紅 */ #dda0dd 25%,
+          /* 淺紫色 */ #98fb98 50%,
+          /* 淺綠色 */ #f0e68c 75%,
+          /* 淺黃色 */ #ffb6c1 100% /* 回到淺粉紅 */
+        );
+        transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: macaron-gradient-shift 1s ease-in-out forwards;
+      }
+
+      /* 顯示轉場動畫 */
+      .macaron-transition-overlay.show {
+        opacity: 1;
+      }
+
+      /* 馬卡龍漸層色彩動畫 */
+      @keyframes macaron-gradient-shift {
+        0% {
+          background: linear-gradient(
+            135deg,
+            #ffb6c1,
+            #dda0dd,
+            #98fb98,
+            #f0e68c,
+            #ffb6c1
+          );
+          opacity: 1;
+        }
+        20% {
+          background: linear-gradient(
+            135deg,
+            #dda0dd,
+            #98fb98,
+            #f0e68c,
+            #ffb6c1,
+            #dda0dd
+          );
+          opacity: 0.9;
+        }
+        40% {
+          background: linear-gradient(
+            135deg,
+            #98fb98,
+            #f0e68c,
+            #ffb6c1,
+            #dda0dd,
+            #98fb98
+          );
+          opacity: 0.7;
+        }
+        60% {
+          background: linear-gradient(
+            135deg,
+            #f0e68c,
+            #ffb6c1,
+            #dda0dd,
+            #98fb98,
+            #f0e68c
+          );
+          opacity: 0.5;
+        }
+        80% {
+          background: linear-gradient(
+            135deg,
+            #ffb6c1,
+            #dda0dd,
+            #98fb98,
+            #f0e68c,
+            #ffb6c1
+          );
+          opacity: 0.3;
+        }
+        100% {
+          background: linear-gradient(
+            135deg,
+            #dda0dd,
+            #98fb98,
+            #f0e68c,
+            #ffb6c1,
+            #dda0dd
+          );
+          opacity: 0;
+        }
+      }
+
       /* 背景影片樣式 - 移除轉場效果，立即顯示 */
       .background-video {
         position: absolute;
@@ -1547,6 +1643,9 @@
       </video>
     </div>
 
+    <!-- 馬卡龍色轉場動畫覆蓋層 -->
+    <div id="macaronTransition" class="macaron-transition-overlay"></div>
+
     <!-- 右上角控制按鈕-->
     <div class="top-right-controls">
       <!-- 下雨按鈕 -->
@@ -1881,6 +1980,9 @@
               return;
             }
 
+            // 顯示馬卡龍轉場動畫
+            this.showMacaronTransition();
+
             // 立即設定影片來源，不需要重置載入狀態
             this.videoElement.crossOrigin = "anonymous";
             this.videoElement.preload = "auto"; // 改為自動預載以減少卡頓
@@ -1904,6 +2006,30 @@
           } catch (error) {
             console.error("載入影片時發生錯誤", error);
             this.playNextVideo();
+          }
+        }
+
+        // 顯示馬卡龍色轉場動畫
+        showMacaronTransition() {
+          const transitionOverlay =
+            document.getElementById("macaronTransition");
+          if (transitionOverlay) {
+            // 重置動畫
+            transitionOverlay.classList.remove("show");
+            transitionOverlay.style.animation = "none";
+
+            // 觸發重排以重置動畫
+            transitionOverlay.offsetHeight;
+
+            // 開始新動畫
+            transitionOverlay.style.animation =
+              "macaron-gradient-shift 1s ease-in-out forwards";
+            transitionOverlay.classList.add("show");
+
+            // 1秒後隱藏轉場
+            setTimeout(() => {
+              transitionOverlay.classList.remove("show");
+            }, 1000);
           }
         }
 
@@ -2149,6 +2275,22 @@
 
         // 設定隨機樣式模式
         updateStyleMode();
+
+        // 顯示初始馬卡龍轉場動畫
+        setTimeout(() => {
+          const transitionOverlay =
+            document.getElementById("macaronTransition");
+          if (transitionOverlay) {
+            transitionOverlay.style.animation =
+              "macaron-gradient-shift 1s ease-in-out forwards";
+            transitionOverlay.classList.add("show");
+
+            // 1秒後隱藏轉場
+            setTimeout(() => {
+              transitionOverlay.classList.remove("show");
+            }, 1000);
+          }
+        }, 100); // 稍微延遲以確保DOM完全載入
 
         // 初始化背景影片管理器
         videoManager = new VideoBackgroundManager();
