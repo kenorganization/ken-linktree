@@ -19,6 +19,63 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <style>
+      /* CSS 變數 - 響應式居中控制 */
+      :root {
+        /* 桌面版居中變數 */
+        --btn-width-desktop: 400px;
+        --icon-left-desktop: 160px;
+        --text-left-desktop: 195px;
+        --github-arrow-right-desktop: 24px;
+
+        /* 中型桌面變數 (1025px-1366px) */
+        --btn-width-medium-desktop: 380px;
+        --icon-left-medium-desktop: 152px;
+        --text-left-medium-desktop: 185px;
+        --github-arrow-right-medium-desktop: 23px;
+
+        /* 小型桌面變數 (769px-1024px) */
+        --btn-width-small-desktop: 360px;
+        --icon-left-small-desktop: 144px;
+        --text-left-small-desktop: 175px;
+        --github-arrow-right-small-desktop: 22px;
+
+        /* 大型平板變數 (641px-768px) */
+        --btn-width-large-tablet: 340px;
+        --icon-left-large-tablet: 136px;
+        --text-left-large-tablet: 165px;
+        --github-arrow-right-large-tablet: 21px;
+
+        /* 小型平板變數 (481px-640px) */
+        --btn-width-small-tablet: 320px;
+        --icon-left-small-tablet: 128px;
+        --text-left-small-tablet: 155px;
+        --github-arrow-right-small-tablet: 20px;
+
+        /* 大型手機變數 (401px-480px) */
+        --btn-width-large-mobile: 300px;
+        --icon-left-large-mobile: 120px;
+        --text-left-large-mobile: 145px;
+        --github-arrow-right-large-mobile: 19px;
+
+        /* 標準手機變數 (376px-400px) */
+        --btn-width-mobile: 88%;
+        --icon-left-mobile: 35%;
+        --text-left-mobile: 45%;
+        --github-arrow-right-mobile: 5%;
+
+        /* 小型手機變數 (iPhone SE等 321px-375px) */
+        --btn-width-small-mobile: 90%;
+        --icon-left-small-mobile: 34%;
+        --text-left-small-mobile: 44%;
+        --github-arrow-right-small-mobile: 5%;
+
+        /* 超小型手機變數 (≤320px) */
+        --btn-width-tiny-mobile: 92%;
+        --icon-left-tiny-mobile: 33%;
+        --text-left-tiny-mobile: 43%;
+        --github-arrow-right-tiny-mobile: 4%;
+      }
+
       /* 主體樣式 - 完全透明讓影片顯示*/
       body {
         background: transparent;
@@ -245,22 +302,23 @@
         opacity: 0.8;
       }
 
-      /* 連結按鈕樣式 - 質感透明版本 */
       .link-btn {
         width: 100%;
-        max-width: 400px;
+        max-width: var(--btn-width-desktop);
         height: 52px;
         background: rgba(255, 255, 255, 0.9);
         border: none;
         border-radius: 16px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        padding-left: 0;
+        padding-right: 24px;
         text-decoration: none;
         color: #1f2937;
         font-weight: 600;
         font-size: 1rem;
-        margin-bottom: 1rem;
+        margin: 0 auto 1rem auto;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         backdrop-filter: blur(20px);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -302,8 +360,15 @@
       }
 
       .link-btn i {
-        margin-right: 0.75rem;
+        position: absolute;
+        left: var(--icon-left-desktop);
         font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      .link-btn span {
+        margin-left: var(--text-left-desktop);
       }
 
       /* 右上角控制按鈕*/
@@ -1459,10 +1524,26 @@
         }
 
         .link-btn {
-          max-width: 560px;
+          max-width: var(--btn-width-medium-desktop);
           height: 60px;
           font-size: 1.15rem;
           margin-bottom: 1.5rem;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-medium-desktop);
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-medium-desktop);
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-medium-desktop);
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-medium-desktop);
         }
 
         .avatar-ring {
@@ -1629,6 +1710,398 @@
       .rain-mode-item.active {
         background: rgba(74, 144, 226, 0.3);
       }
+
+      /* GitHub 多帳戶選擇器樣式 */
+      .github-multi-account-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .github-main-btn {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        justify-content: flex-start;
+      }
+
+      .github-main-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .github-main-content {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+      }
+
+      .github-main-content i {
+        position: absolute;
+        left: var(--icon-left-desktop);
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+      }
+
+      .github-main-content span {
+        margin-left: var(--text-left-desktop);
+      }
+
+      .github-arrow {
+        font-size: 0.9rem;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0.7;
+        position: absolute;
+        right: var(--github-arrow-right-desktop);
+      }
+
+      .github-main-btn.active .github-arrow {
+        transform: rotate(180deg);
+      }
+
+      .github-accounts-panel {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 12px 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-15px) scale(0.95);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        z-index: 1000;
+        overflow: hidden;
+      }
+
+      .github-accounts-panel.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      .github-account-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        margin: 2px 0;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .github-account-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.08),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      .github-account-item:hover::before {
+        left: 100%;
+      }
+
+      .github-account-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateX(4px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .github-account-item:active {
+        transform: translateX(2px) scale(0.98);
+        transition: all 0.1s ease;
+      }
+
+      .github-account-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .github-account-icon {
+        font-size: 1.4rem;
+        color: #4a90e2;
+        transition: all 0.3s ease;
+      }
+
+      .github-account-item:hover .github-account-icon {
+        color: #6bb6ff;
+        transform: scale(1.1);
+      }
+
+      .github-account-details {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .github-account-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: white;
+        line-height: 1.2;
+      }
+
+      .github-account-desc {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.2;
+      }
+
+      .github-account-link {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .github-account-item:hover .github-account-link {
+        color: rgba(255, 255, 255, 0.8);
+        transform: translateX(2px);
+      }
+
+      /* GitHub 帳戶項目動畫延遲 */
+      .github-account-item:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+
+      .github-account-item:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+
+      .github-account-item:nth-child(3) {
+        transition-delay: 0.15s;
+      }
+
+      .github-account-item:nth-child(4) {
+        transition-delay: 0.2s;
+      }
+
+      .github-account-item:nth-child(5) {
+        transition-delay: 0.25s;
+      }
+
+      /* 響應式設計 - 多種手機尺寸優化 */
+
+      /* 大型平板 (769px - 1024px) */
+      @media (max-width: 1024px) and (min-width: 769px) {
+        .link-btn {
+          max-width: var(--btn-width-small-desktop);
+        }
+
+        .link-btn i {
+          left: var(--icon-left-small-desktop);
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-small-desktop);
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-small-desktop);
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-small-desktop);
+        }
+      }
+
+      /* 小型平板/大型手機 (481px - 768px) */
+      @media (max-width: 768px) and (min-width: 481px) {
+        .link-btn {
+          max-width: var(--btn-width-small-tablet);
+          height: 50px;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-small-tablet);
+          font-size: 1rem;
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-small-tablet);
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-small-tablet);
+          font-size: 1rem;
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-small-tablet);
+        }
+
+        .github-arrow {
+          right: var(--github-arrow-right-small-tablet);
+        }
+      }
+
+      /* 大型手機 (401px - 480px) */
+      @media (max-width: 480px) and (min-width: 401px) {
+        .link-btn {
+          max-width: var(--btn-width-large-mobile);
+          height: 50px;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-large-mobile);
+          font-size: 1rem;
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-large-mobile);
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-large-mobile);
+          font-size: 1rem;
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-large-mobile);
+        }
+
+        .github-arrow {
+          right: var(--github-arrow-right-large-mobile);
+        }
+      }
+
+      /* 標準手機 (376px - 400px) */
+      @media (max-width: 400px) and (min-width: 376px) {
+        .link-btn {
+          max-width: var(--btn-width-mobile);
+          height: 48px;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-mobile);
+          font-size: 1rem;
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-mobile);
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-mobile);
+          font-size: 1rem;
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-mobile);
+        }
+
+        .github-arrow {
+          right: var(--github-arrow-right-mobile);
+        }
+      }
+
+      /* 小型手機 (321px - 375px) */
+      @media (max-width: 375px) and (min-width: 321px) {
+        .link-btn {
+          max-width: var(--btn-width-small-mobile);
+          height: 46px;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-small-mobile);
+          font-size: 0.95rem;
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-small-mobile);
+          font-size: 0.95rem;
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-small-mobile);
+          font-size: 0.95rem;
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-small-mobile);
+          font-size: 0.95rem;
+        }
+
+        .github-arrow {
+          right: var(--github-arrow-right-small-mobile);
+          font-size: 0.8rem;
+        }
+      }
+
+      /* 超小型手機 (≤320px) */
+      @media (max-width: 320px) {
+        .link-btn {
+          max-width: var(--btn-width-tiny-mobile);
+          height: 44px;
+        }
+
+        .link-btn i {
+          left: var(--icon-left-tiny-mobile);
+          font-size: 0.9rem;
+        }
+
+        .link-btn span {
+          margin-left: var(--text-left-tiny-mobile);
+          font-size: 0.9rem;
+        }
+
+        .github-main-content i {
+          left: var(--icon-left-tiny-mobile);
+          font-size: 0.9rem;
+        }
+
+        .github-main-content span {
+          margin-left: var(--text-left-tiny-mobile);
+          font-size: 0.9rem;
+        }
+
+        .github-arrow {
+          right: var(--github-arrow-right-tiny-mobile);
+          font-size: 0.75rem;
+        }
+      }
+
+        .github-accounts-panel {
+          padding: 10px 6px;
+        }
+
+        .github-account-item {
+          padding: 10px 12px;
+        }
+
+        .github-account-icon {
+          font-size: 1.2rem;
+        }
+
+        .github-account-name {
+          font-size: 0.9rem;
+        }
+
+        .github-account-desc {
+          font-size: 0.75rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1735,7 +2208,7 @@
       <div class="avatar-container">
         <div class="avatar-ring">
           <img
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+            src="src/background-media/avatar/20250615_154307.jpg"
             alt="Ken 的頭像"
             class="avatar-image"
           />
@@ -1745,8 +2218,9 @@
       <!-- 姓名及簡介-->
       <h1 class="profile-name" id="profileName">Ken</h1>
       <p class="profile-bio" id="profileBio">
-        歡迎來到我的個人連結頁面！<br />
-        在這裡可以找到我的所有社群媒體和重要連結。
+        biological/cosmetic/MD/MedChem researcher👨‍🔬<br />
+        被寫軟體耽誤的科學家<br />
+        A scientist derailed by coding.
       </p>
 
       <!-- 社群顯示 -->
@@ -1756,42 +2230,148 @@
 
       <!-- 連結按鈕 -->
       <div class="w-full max-w-md space-y-3">
-        <a href="https://github.com" class="link-btn" target="_blank">
-          <i class="fab fa-github"></i>
-          <span id="githubText">GitHub</span>
-        </a>
+        <!-- GitHub 多帳戶選擇器 -->
+        <div class="github-multi-account-container">
+          <div
+            class="link-btn github-main-btn"
+            onclick="toggleGitHubAccounts(event)"
+          >
+            <div class="github-main-content">
+              <i class="fab fa-github"></i>
+              <span id="githubText">GitHub</span>
+            </div>
+            <i class="fas fa-chevron-down github-arrow"></i>
+          </div>
 
-        <a href="https://linkedin.com" class="link-btn" target="_blank">
+          <!-- GitHub 帳戶選項面板 -->
+          <div class="github-accounts-panel" id="githubAccountsPanel">
+            <div
+              class="github-account-item"
+              onclick="openGitHubAccount('https://github.com/kenorganization', event)"
+            >
+              <div class="github-account-info">
+                <i class="fab fa-github github-account-icon"></i>
+                <div class="github-account-details">
+                  <span class="github-account-name">kenorganization</span>
+                  <span class="github-account-desc">個人專案</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt github-account-link"></i>
+            </div>
+
+            <div
+              class="github-account-item"
+              onclick="openGitHubAccount('https://github.com/kenorganization/ken-linktree', event)"
+              style="display: none"
+            >
+              <div class="github-account-info">
+                <i class="fab fa-github github-account-icon"></i>
+                <div class="github-account-details">
+                  <span class="github-account-name">Linktree專案</span>
+                  <span class="github-account-desc">本網站專案</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt github-account-link"></i>
+            </div>
+
+            <div
+              class="github-account-item"
+              onclick="openGitHubAccount('https://github.com/kenorganization/kencv', event)"
+              style="display: none"
+            >
+              <div class="github-account-info">
+                <i class="fab fa-github github-account-icon"></i>
+                <div class="github-account-details">
+                  <span class="github-account-name">履歷網站</span>
+                  <span class="github-account-desc">個人履歷</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt github-account-link"></i>
+            </div>
+
+            <div
+              class="github-account-item"
+              onclick="openGitHubAccount('https://github.com/kenorganization', event)"
+              style="display: none"
+            >
+              <div class="github-account-info">
+                <i class="fab fa-github github-account-icon"></i>
+                <div class="github-account-details">
+                  <span class="github-account-name">所有專案</span>
+                  <span class="github-account-desc">完整列表</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt github-account-link"></i>
+            </div>
+
+            <div
+              class="github-account-item"
+              onclick="openGitHubAccount('https://github.com/kenorganization', event)"
+              style="display: none"
+            >
+              <div class="github-account-info">
+                <i class="fab fa-github github-account-icon"></i>
+                <div class="github-account-details">
+                  <span class="github-account-name">學習資源</span>
+                  <span class="github-account-desc">教學筆記</span>
+                </div>
+              </div>
+              <i class="fas fa-external-link-alt github-account-link"></i>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://www.linkedin.com/in/健恩-徐-21a279207"
+          class="link-btn"
+          target="_blank"
+        >
           <i class="fab fa-linkedin"></i>
           <span id="linkedinText">LinkedIn</span>
         </a>
 
-        <a href="https://twitter.com" class="link-btn" target="_blank">
-          <i class="fab fa-twitter"></i>
-          <span id="twitterText">Twitter</span>
+        <a
+          href="https://gurulaptop-ckeditor-frontend.onrender.com/"
+          class="link-btn"
+          target="_blank"
+        >
+          <i class="fas fa-briefcase"></i>
+          <span id="portfolioText">Portfolio</span>
         </a>
 
-        <a href="https://instagram.com" class="link-btn" target="_blank">
+        <a
+          href="https://www.instagram.com/ken150ken150/"
+          class="link-btn"
+          target="_blank"
+        >
           <i class="fab fa-instagram"></i>
           <span id="instagramText">Instagram</span>
         </a>
 
-        <a href="mailto:your.email@example.com" class="link-btn">
+        <a href="mailto:ken150ken150@yahoo.com.tw" class="link-btn">
           <i class="fas fa-envelope"></i>
           <span id="emailText">電子信件</span>
         </a>
 
-        <a href="https://your-website.com" class="link-btn" target="_blank">
-          <i class="fas fa-globe"></i>
-          <span id="websiteText">個人網站</span>
+        <a
+          href="https://www.cake.me/s--aki_V7TcrKM7MKCprTQv8g--/ken150ken150"
+          class="link-btn"
+          target="_blank"
+        >
+          <i class="fas fa-user-tie"></i>
+          <span id="cakeText">Cake履歷</span>
         </a>
 
-        <a href="https://your-blog.com" class="link-btn" target="_blank">
-          <i class="fas fa-blog"></i>
-          <span id="blogText">部落格</span>
+        <a
+          href="https://kenorganization.github.io/kencv/"
+          class="link-btn"
+          target="_blank"
+        >
+          <i class="fas fa-file-alt"></i>
+          <span id="cvText">KenCV</span>
         </a>
 
-        <a href="https://youtube.com" class="link-btn" target="_blank">
+        <a href="#" class="link-btn" onclick="alert('YouTube頻道準備中...');">
           <i class="fab fa-youtube"></i>
           <span id="youtubeText">YouTube</span>
         </a>
@@ -2229,17 +2809,17 @@
         zh: {
           profileName: "Ken",
           profileBio:
-            "歡迎來到我的個人連結頁面！<br />在這裡可以找到我所有社群媒體的重要連結，包括技術項目、社交平台和聯絡方式！",
+            "biological/cosmetic/MD/MedChem researcher👨‍🔬<br />被寫軟體耽誤的科學家<br />A scientist derailed by coding.",
           styleText: "隨機樣式",
           langText: "English",
           refreshText: "重新整理",
           githubText: "GitHub",
           linkedinText: "LinkedIn",
-          twitterText: "Twitter",
+          portfolioText: "作品集",
           instagramText: "Instagram",
           emailText: "電子信件",
-          websiteText: "個人網站",
-          blogText: "部落格",
+          cakeText: "Cake履歷",
+          cvText: "履歷網頁",
           youtubeText: "YouTube",
           privacyText: "隱私政策",
           termsText: "使用條款",
@@ -2247,7 +2827,7 @@
           poweredText: "Powered by Ken",
           copyrightText: "© 2025 Ken. 版權所有",
           shareModalTitle: "分享此頁面",
-          copyLinkText: "複製???",
+          copyLinkText: "複製連結",
           emailShareText: "電子信件",
           linkCopied: "連結已複製到剪貼簿！",
           copyFailed: "複製失敗，請手動複製",
@@ -2256,23 +2836,23 @@
         en: {
           profileName: "Ken",
           profileBio:
-            "Welcome to my personal link page!<br />Find all my social media and important links here.",
+            "biological/cosmetic/MD/MedChem researcher👨‍🔬<br />A scientist derailed by coding.<br />被寫軟體耽誤的科學家",
           styleText: "Random Style",
           langText: "中文",
           refreshText: "Refresh",
           githubText: "GitHub",
           linkedinText: "LinkedIn",
-          twitterText: "Twitter",
+          portfolioText: "Portfolio",
           instagramText: "Instagram",
           emailText: "Email",
-          websiteText: "Website",
-          blogText: "Blog",
+          cakeText: "Cake Resume",
+          cvText: "CV Website",
           youtubeText: "YouTube",
           privacyText: "Privacy Policy",
           termsText: "Terms of Service",
           cookiesText: "Cookie Policy",
           poweredText: "Powered by Ken",
-          copyrightText: "© 2024 Ken. All rights reserved.",
+          copyrightText: "© 2025 Ken. All rights reserved.",
           shareModalTitle: "Share this page",
           copyLinkText: "Copy Link",
           emailShareText: "Email",
@@ -2623,6 +3203,93 @@
         }
         updateStyleIcon();
       }
+
+      // GitHub 多帳戶選擇器功能
+      let githubPanelOpen = false;
+
+      function toggleGitHubAccounts(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const panel = document.getElementById("githubAccountsPanel");
+        const mainBtn = event.currentTarget;
+
+        githubPanelOpen = !githubPanelOpen;
+
+        if (githubPanelOpen) {
+          panel.classList.add("show");
+          mainBtn.classList.add("active");
+
+          // 添加點擊外部關閉的事件監聽
+          setTimeout(() => {
+            document.addEventListener("click", closeGitHubPanelOnOutsideClick);
+          }, 100);
+
+          // 為每個帳戶項目添加滑入動畫
+          const accountItems = panel.querySelectorAll(".github-account-item");
+          accountItems.forEach((item, index) => {
+            item.style.opacity = "0";
+            item.style.transform = "translateY(-10px)";
+            setTimeout(() => {
+              item.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0)";
+            }, index * 50);
+          });
+        } else {
+          panel.classList.remove("show");
+          mainBtn.classList.remove("active");
+          document.removeEventListener("click", closeGitHubPanelOnOutsideClick);
+        }
+      }
+
+      function closeGitHubPanelOnOutsideClick(event) {
+        const container = document.querySelector(
+          ".github-multi-account-container"
+        );
+        if (!container.contains(event.target)) {
+          closeGitHubPanel();
+        }
+      }
+
+      function closeGitHubPanel() {
+        const panel = document.getElementById("githubAccountsPanel");
+        const mainBtn = document.querySelector(".github-main-btn");
+
+        if (panel && panel.classList.contains("show")) {
+          panel.classList.remove("show");
+          mainBtn.classList.remove("active");
+          githubPanelOpen = false;
+          document.removeEventListener("click", closeGitHubPanelOnOutsideClick);
+        }
+      }
+
+      function openGitHubAccount(url, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        // 添加點擊動畫效果
+        const item = event.currentTarget;
+        item.style.transform = "translateX(2px) scale(0.98)";
+
+        // 短暫延遲後開啟連結並關閉面板
+        setTimeout(() => {
+          window.open(url, "_blank");
+          closeGitHubPanel();
+
+          // 恢復按鈕狀態
+          setTimeout(() => {
+            item.style.transform = "";
+          }, 200);
+        }, 150);
+      }
+
+      // 鍵盤支援
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && githubPanelOpen) {
+          closeGitHubPanel();
+        }
+      });
 
       // 切換語言
       function toggleLanguage() {
