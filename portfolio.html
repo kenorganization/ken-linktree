@@ -15,12 +15,14 @@
         overflow-x: hidden;
       }
 
-      /* ── 背景影片（與 index.html 完全相同） ── */
+      /* ── 背景影片（雙 video 無縫 crossfade） ── */
       .bg-video-wrap {
         position: fixed;
         inset: 0;
         z-index: -2;
         overflow: hidden;
+        /* 預設底色：避免影片空檔出現純白刷新感 */
+        background: #111;
       }
       .bg-video {
         position: absolute;
@@ -29,9 +31,13 @@
         width: auto; height: auto;
         transform: translate(-50%, -50%);
         object-fit: cover;
+        opacity: 0;
+        transition: opacity 1.2s ease;
+        will-change: opacity;
       }
+      .bg-video.is-active { opacity: 1; }
 
-      /* 馬卡龍轉場 */
+      /* 馬卡龍轉場（保留作為「整頁初次載入」的淡入襯底，不再於每次切片時閃爍） */
       .macaron-transition {
         position: fixed;
         inset: 0;
@@ -344,9 +350,10 @@
   </head>
   <body>
 
-    <!-- 背景影片（與 index.html 相同機制） -->
+    <!-- 背景影片（雙 video 無縫 crossfade） -->
     <div class="bg-video-wrap">
-      <video id="bgVideo" autoplay muted playsinline preload="auto"></video>
+      <video id="bgVideoA" class="bg-video" autoplay muted playsinline preload="auto"></video>
+      <video id="bgVideoB" class="bg-video" muted playsinline preload="auto"></video>
     </div>
     <div class="macaron-transition" id="macaronOverlay"></div>
 
@@ -593,32 +600,96 @@
 
       const shuffled = fisherYates(VIDEOS);
       let currentIdx = 0;
-      const vid = document.getElementById("bgVideo");
+
+      // 雙 video crossfade：active 正在播放，standby 預載下一支
+      let activeEl = document.getElementById("bgVideoA");
+      let standbyEl = document.getElementById("bgVideoB");
       const overlay = document.getElementById("macaronOverlay");
 
-      function showMacaron() {
+      // 整頁首次載入時的一次性淡入襯底（之後的切片不再閃爍）
+      function initialFadeIn() {
         overlay.style.opacity = "1";
-        setTimeout(() => { overlay.style.opacity = "0"; }, 900);
+        setTimeout(() => { overlay.style.opacity = "0"; }, 800);
       }
 
-      function loadVideo(path) {
-        showMacaron();
-        vid.src = path;
-        vid.muted = true;
-        vid.load();
-        vid.play().catch(() => {});
+      function primeVideo(el, path) {
+        el.muted = true;
+        el.playsInline = true;
+        el.src = path;
+        el.load();
       }
 
-      vid.addEventListener("ended", () => {
-        currentIdx = (currentIdx + 1) % shuffled.length;
-        loadVideo(shuffled[currentIdx]);
-      });
-      vid.addEventListener("error", () => {
-        currentIdx = (currentIdx + 1) % shuffled.length;
-        loadVideo(shuffled[currentIdx]);
-      });
+      function nextIndex() {
+        return (currentIdx + 1) % shuffled.length;
+      }
 
-      loadVideo(shuffled[0]);
+      function preloadNext() {
+        primeVideo(standbyEl, shuffled[nextIndex()]);
+      }
+
+      // 從 active 交叉淡入到 standby
+      let switching = false;
+      function crossfadeToStandby() {
+        if (switching) return;
+        switching = true;
+
+        const oldActive = activeEl;
+        const newActive = standbyEl;
+
+        // 嘗試播放 standby，再做淡入淡出；避免黑幀
+        const startPlay = newActive.play().catch(() => {});
+        Promise.resolve(startPlay).then(() => {
+          newActive.classList.add("is-active");
+          oldActive.classList.remove("is-active");
+
+          // 等 CSS transition 結束再清理舊影片並換角色
+          setTimeout(() => {
+            try { oldActive.pause(); } catch (e) {}
+            // 釋放舊來源，避免瀏覽器繼續佔用頻寬/記憶體
+            oldActive.removeAttribute("src");
+            oldActive.load();
+
+            activeEl = newActive;
+            standbyEl = oldActive;
+
+            currentIdx = nextIndex();
+            preloadNext();
+            switching = false;
+          }, 1250); // 稍大於 CSS transition 1.2s
+        });
+      }
+
+      function bindVideoEvents(el) {
+        el.addEventListener("ended", () => {
+          if (el === activeEl) crossfadeToStandby();
+        });
+        el.addEventListener("error", () => {
+          if (el === activeEl) {
+            // active 壞了 → 直接跳去 standby
+            crossfadeToStandby();
+          } else {
+            // standby 壞了 → 重新預載再下一支
+            currentIdx = nextIndex();
+            preloadNext();
+          }
+        });
+      }
+
+      bindVideoEvents(activeEl);
+      bindVideoEvents(standbyEl);
+
+      // 初始：active 載入第一支，standby 預載第二支
+      primeVideo(activeEl, shuffled[currentIdx]);
+      activeEl.addEventListener(
+        "loadeddata",
+        () => {
+          activeEl.classList.add("is-active");
+          activeEl.play().catch(() => {});
+          preloadNext();
+        },
+        { once: true }
+      );
+      initialFadeIn();
     </script>
   </body>
 </html>
