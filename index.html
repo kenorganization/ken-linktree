@@ -19,61 +19,15 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <style>
-      /* CSS 變數 - 響應式居中控制 */
+      /* CSS 變數 */
       :root {
-        /* 桌面版居中變數 */
-        --btn-width-desktop: 400px;
-        --icon-left-desktop: 160px;
-        --text-left-desktop: 195px;
-        --github-arrow-right-desktop: 24px;
-
-        /* 中型桌面變數 (1025px-1366px) */
-        --btn-width-medium-desktop: 380px;
-        --icon-left-medium-desktop: 152px;
-        --text-left-medium-desktop: 185px;
-        --github-arrow-right-medium-desktop: 23px;
-
-        /* 小型桌面變數 (769px-1024px) */
-        --btn-width-small-desktop: 360px;
-        --icon-left-small-desktop: 144px;
-        --text-left-small-desktop: 175px;
-        --github-arrow-right-small-desktop: 22px;
-
-        /* 大型平板變數 (641px-768px) */
-        --btn-width-large-tablet: 340px;
-        --icon-left-large-tablet: 136px;
-        --text-left-large-tablet: 165px;
-        --github-arrow-right-large-tablet: 21px;
-
-        /* 小型平板變數 (481px-640px) */
-        --btn-width-small-tablet: 320px;
-        --icon-left-small-tablet: 128px;
-        --text-left-small-tablet: 155px;
-        --github-arrow-right-small-tablet: 20px;
-
-        /* 大型手機變數 (401px-480px) */
-        --btn-width-large-mobile: 300px;
-        --icon-left-large-mobile: 120px;
-        --text-left-large-mobile: 145px;
-        --github-arrow-right-large-mobile: 19px;
-
-        /* 標準手機變數 (376px-400px) */
-        --btn-width-mobile: 88%;
-        --icon-left-mobile: 35%;
-        --text-left-mobile: 45%;
-        --github-arrow-right-mobile: 5%;
-
-        /* 小型手機變數 (iPhone SE等 321px-375px) */
-        --btn-width-small-mobile: 90%;
-        --icon-left-small-mobile: 34%;
-        --text-left-small-mobile: 44%;
-        --github-arrow-right-small-mobile: 5%;
-
-        /* 超小型手機變數 (≤320px) */
-        --btn-width-tiny-mobile: 92%;
-        --icon-left-tiny-mobile: 33%;
-        --text-left-tiny-mobile: 43%;
-        --github-arrow-right-tiny-mobile: 4%;
+        --btn-max-width: 420px;
+        --btn-height: 52px;
+        --btn-font-size: 1rem;
+        --btn-radius: 16px;
+        --btn-gap: 0.625rem;
+        --btn-padding-x: 1.5rem;
+        --btn-margin-bottom: 0.875rem;
       }
 
       /* 主體樣式 - 完全透明讓影片顯示*/
@@ -228,26 +182,36 @@
         visibility: visible !important;
       }
 
-      /* 主容器樣式 - 完全居中設計 */
+      /* 連結按鈕容器 */
+      .links-container {
+        width: 100%;
+        max-width: calc(var(--btn-max-width) + 2 * var(--btn-padding-x));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* 主容器樣式 */
       .main-container {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: 4rem 1rem 2rem;
+        padding: clamp(2.5rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem) clamp(2rem, 5vw, 3rem);
         position: relative;
+        box-sizing: border-box;
       }
 
-      /* 頭像容器 - 完全仿照 Linktree */
+      /* 頭像容器 */
       .avatar-container {
-        margin-bottom: 1.5rem;
+        margin-bottom: clamp(1rem, 3vw, 1.5rem);
         position: relative;
       }
 
       .avatar-ring {
-        width: 96px;
-        height: 96px;
+        width: clamp(80px, 18vw, 108px);
+        height: clamp(80px, 18vw, 108px);
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.3);
         padding: 3px;
@@ -266,34 +230,35 @@
         border: 2px solid white;
       }
 
-      /* 個人名稱 - 完全仿照 Linktree */
+      /* 個人名稱 */
       .profile-name {
         color: white;
-        font-size: 2rem;
+        font-size: clamp(1.5rem, 5vw, 2.25rem);
         font-weight: 700;
         margin-bottom: 0.5rem;
         text-align: center;
         text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
         letter-spacing: -0.025em;
+        line-height: 1.2;
       }
 
       .profile-bio {
         color: rgba(255, 255, 255, 0.95);
-        font-size: 1rem;
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
         margin-bottom: 1.5rem;
         text-align: center;
-        line-height: 1.4;
+        line-height: 1.55;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-        max-width: 400px;
+        max-width: min(400px, 90vw);
       }
 
       /* 社群顯示 */
       .social-icon {
         color: white;
-        font-size: 1.75rem;
+        font-size: clamp(1.5rem, 5vw, 1.875rem);
         transition: all 0.2s ease;
         display: inline-block;
-        margin-bottom: 2rem;
+        margin-bottom: clamp(1.25rem, 4vw, 2rem);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       }
 
@@ -304,21 +269,21 @@
 
       .link-btn {
         width: 100%;
-        max-width: var(--btn-width-desktop);
-        height: 52px;
+        max-width: var(--btn-max-width);
+        height: var(--btn-height);
         background: rgba(255, 255, 255, 0.9);
         border: none;
-        border-radius: 16px;
+        border-radius: var(--btn-radius);
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        padding-left: 0;
-        padding-right: 24px;
+        justify-content: center;
+        gap: var(--btn-gap);
+        padding: 0 var(--btn-padding-x);
         text-decoration: none;
         color: #1f2937;
         font-weight: 600;
-        font-size: 1rem;
-        margin: 0 auto 1rem auto;
+        font-size: var(--btn-font-size);
+        margin: 0 auto var(--btn-margin-bottom) auto;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         backdrop-filter: blur(20px);
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -360,25 +325,26 @@
       }
 
       .link-btn i {
-        position: absolute;
-        left: var(--icon-left-desktop);
         font-size: 1.1rem;
         width: 20px;
         text-align: center;
+        flex-shrink: 0;
       }
 
       .link-btn span {
-        margin-left: var(--text-left-desktop);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       /* 右上角控制按鈕*/
       .top-right-controls {
         position: fixed;
-        top: 1.5rem;
-        right: 1.5rem;
+        top: clamp(0.875rem, 3vw, 1.5rem);
+        right: clamp(0.875rem, 3vw, 1.5rem);
         z-index: 1000;
         display: flex;
-        gap: 0.75rem;
+        gap: clamp(0.5rem, 2vw, 0.75rem);
         align-items: center;
       }
 
@@ -447,13 +413,13 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         min-width: 220px;
         overflow: hidden;
-        animation: fadeInScale 0.2s ease;
+        animation: fadeInScale 0.38s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       @keyframes fadeInScale {
         0% {
           opacity: 0;
-          transform: scale(0.95) translateY(-10px);
+          transform: scale(0.94) translateY(-14px);
         }
         100% {
           opacity: 1;
@@ -504,14 +470,15 @@
       /* 頁腳樣式 - 仿照 Linktree */
       .footer-container {
         margin-top: auto;
-        padding-top: 3rem;
+        padding-top: clamp(2rem, 5vw, 3rem);
         text-align: center;
+        width: 100%;
       }
 
       .footer-links {
         display: flex;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
+        gap: clamp(0.75rem, 3vw, 1.5rem);
+        margin-bottom: 1.25rem;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
@@ -520,7 +487,7 @@
       .footer-link {
         color: rgba(255, 255, 255, 0.7);
         text-decoration: none;
-        font-size: 0.875rem;
+        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
         font-weight: 500;
         transition: all 0.2s ease;
       }
@@ -536,18 +503,18 @@
 
       .footer-brand {
         color: rgba(255, 255, 255, 0.6);
-        font-size: 0.875rem;
-        margin-bottom: 0.75rem;
+        font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+        margin-bottom: 0.625rem;
         font-weight: 500;
       }
 
       .footer-copyright {
         color: rgba(255, 255, 255, 0.4);
-        font-size: 0.75rem;
+        font-size: clamp(0.65rem, 2vw, 0.75rem);
         margin-bottom: 1rem;
       }
 
-      /* Modal 樣式 - 現代設計*/
+      /* Modal 樣式 */
       .modal-backdrop {
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(12px);
@@ -556,21 +523,28 @@
       .modal-box {
         background: white;
         border-radius: 24px;
+        width: min(420px, 92vw);
         max-width: 420px;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
         border: none;
-        padding: 2rem;
+        padding: clamp(1.25rem, 5vw, 2rem);
+        margin: auto;
+      }
+
+      .modal-box h3 {
+        font-size: clamp(1rem, 4vw, 1.125rem);
       }
 
       [data-theme="dark"] .modal-box {
         background: rgb(31, 41, 55);
         color: white;
       }
+
       .share-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1.25rem;
-        margin: 2rem 0;
+        gap: clamp(0.75rem, 3vw, 1.25rem);
+        margin: 1.5rem 0;
       }
 
       .share-item {
@@ -594,22 +568,23 @@
       }
 
       .share-icon {
-        width: 52px;
-        height: 52px;
+        width: clamp(40px, 11vw, 52px);
+        height: clamp(40px, 11vw, 52px);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 1.5rem;
+        font-size: clamp(1.125rem, 4vw, 1.5rem);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
       .share-label {
-        font-size: 0.75rem;
+        font-size: clamp(0.625rem, 2.5vw, 0.75rem);
         text-align: center;
         color: #4b5563;
         font-weight: 500;
+        word-break: keep-all;
       }
 
       [data-theme="dark"] .share-label {
@@ -1312,55 +1287,35 @@
         }
       }
 
-      /* 響應式設計 - 全面適配版本 */
-      /* 超小螢幕 (< 480px) */
+      /* 響應式設計 */
+
+      /* 超小螢幕 (≤ 479px) */
       @media (max-width: 479px) {
-        .main-container {
-          padding: 2.5rem 1rem 1.5rem;
-        }
-
-        .profile-name {
-          font-size: 1.5rem;
-        }
-
-        .profile-bio {
-          font-size: 0.8rem;
-          margin-bottom: 1rem;
-          line-height: 1.3;
-        }
-
-        .link-btn {
-          height: 46px;
-          font-size: 0.9rem;
-          margin-bottom: 0.75rem;
-          border-radius: 14px;
-        }
-
-        .avatar-ring {
-          width: 80px;
-          height: 80px;
+        :root {
+          --btn-height: 46px;
+          --btn-font-size: 0.875rem;
+          --btn-radius: 13px;
+          --btn-margin-bottom: 0.75rem;
+          --btn-gap: 0.5rem;
+          --btn-padding-x: 1.25rem;
         }
 
         .top-right-controls {
-          top: 1rem;
-          right: 1rem;
+          top: 0.875rem;
+          right: 0.875rem;
           gap: 0.5rem;
         }
 
         .share-btn,
-        .menu-btn {
+        .menu-btn,
+        .rain-btn {
           width: 38px;
           height: 38px;
-        }
-
-        .dropdown-menu {
-          min-width: 180px;
-          top: 3rem !important;
-          right: 0.5rem !important;
+          border-radius: 10px;
         }
 
         .footer-links {
-          gap: 1rem;
+          gap: 0.625rem;
           flex-direction: column;
         }
 
@@ -1368,35 +1323,30 @@
           display: none;
         }
 
-        .share-grid {
-          gap: 1rem;
+        .footer-link,
+        .footer-brand {
+          font-size: 0.8rem;
+        }
+
+        .footer-copyright {
+          font-size: 0.7rem;
+        }
+
+        .github-account-name {
+          font-size: 0.875rem;
+        }
+
+        .github-account-desc {
+          font-size: 0.7rem;
         }
       }
 
-      /* 小螢幕手機(480px - 640px) */
+      /* 手機 (480px - 640px) */
       @media (min-width: 480px) and (max-width: 640px) {
-        .main-container {
-          padding: 3rem 1.25rem 1.5rem;
-        }
-
-        .profile-name {
-          font-size: 1.75rem;
-        }
-
-        .profile-bio {
-          font-size: 0.875rem;
-          margin-bottom: 1.25rem;
-        }
-
-        .link-btn {
-          height: 48px;
-          margin-bottom: 0.875rem;
-          max-width: 100%;
-        }
-
-        .avatar-ring {
-          width: 88px;
-          height: 88px;
+        :root {
+          --btn-height: 48px;
+          --btn-font-size: 0.9rem;
+          --btn-radius: 14px;
         }
 
         .top-right-controls {
@@ -1405,59 +1355,54 @@
         }
 
         .share-btn,
-        .menu-btn {
+        .menu-btn,
+        .rain-btn {
           width: 40px;
           height: 40px;
         }
 
-        .dropdown-menu {
-          min-width: 200px;
-          top: 3.5rem !important;
-          right: 1rem !important;
-        }
-
         .footer-links {
-          gap: 1rem;
+          gap: 0.75rem;
           flex-direction: column;
         }
 
         .footer-separator {
           display: none;
         }
-
-        .share-grid {
-          gap: 1rem;
-        }
       }
 
-      /* 大螢幕手機小平板(641px - 768px) */
+      /* 大型手機／小平板 (641px - 768px) */
       @media (min-width: 641px) and (max-width: 768px) {
+        :root {
+          --btn-max-width: 460px;
+          --btn-height: 54px;
+          --btn-font-size: 1rem;
+        }
+
         .main-container {
-          padding: 3.5rem 2rem 2rem;
           max-width: 600px;
           margin: 0 auto;
         }
 
-        .profile-name {
-          font-size: 2.25rem;
+        .social-icon {
+          font-size: 1.875rem;
+          margin-bottom: 2.25rem;
+        }
+      }
+
+      /* 平板 (769px - 1024px) */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        :root {
+          --btn-max-width: 480px;
+          --btn-height: 56px;
+          --btn-font-size: 1.05rem;
+          --btn-radius: 17px;
+          --btn-margin-bottom: 1.125rem;
         }
 
-        .profile-bio {
-          font-size: 1.1rem;
-          margin-bottom: 1.75rem;
-          max-width: 480px;
-        }
-
-        .link-btn {
-          max-width: 480px;
-          height: 56px;
-          font-size: 1.05rem;
-          margin-bottom: 1.125rem;
-        }
-
-        .avatar-ring {
-          width: 104px;
-          height: 104px;
+        .main-container {
+          max-width: 680px;
+          margin: 0 auto;
         }
 
         .social-icon {
@@ -1466,125 +1411,40 @@
         }
       }
 
-      /* 平板電腦 (769px - 1024px) */
-      @media (min-width: 769px) and (max-width: 1024px) {
+      /* 桌面小螢幕 (1025px - 1366px) */
+      @media (min-width: 1025px) and (max-width: 1366px) {
+        :root {
+          --btn-max-width: 440px;
+          --btn-height: 58px;
+          --btn-font-size: 1.1rem;
+          --btn-radius: 17px;
+          --btn-margin-bottom: 1.25rem;
+        }
+
         .main-container {
-          padding: 4rem 3rem 2.5rem;
-          max-width: 700px;
+          max-width: 760px;
           margin: 0 auto;
         }
+      }
 
-        .profile-name {
-          font-size: 2.5rem;
-          margin-bottom: 0.75rem;
+      /* 大型桌面 (≥ 1367px) */
+      @media (min-width: 1367px) {
+        :root {
+          --btn-max-width: 480px;
+          --btn-height: 60px;
+          --btn-font-size: 1.125rem;
+          --btn-radius: 18px;
+          --btn-margin-bottom: 1.375rem;
         }
 
-        .profile-bio {
-          font-size: 1.2rem;
-          margin-bottom: 2rem;
-          max-width: 520px;
-          line-height: 1.5;
-        }
-
-        .link-btn {
-          max-width: 520px;
-          height: 58px;
-          font-size: 1.1rem;
-          margin-bottom: 1.25rem;
-          border-radius: 18px;
-        }
-
-        .avatar-ring {
-          width: 112px;
-          height: 112px;
+        .main-container {
+          max-width: 860px;
+          margin: 0 auto;
         }
 
         .social-icon {
           font-size: 2.25rem;
           margin-bottom: 2.75rem;
-        }
-      }
-
-      /* 桌面小螢幕(1025px - 1366px) */
-      @media (min-width: 1025px) and (max-width: 1366px) {
-        .main-container {
-          padding: 4.5rem 2rem 3rem;
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .profile-name {
-          font-size: 2.75rem;
-        }
-
-        .profile-bio {
-          font-size: 1.25rem;
-          margin-bottom: 2.25rem;
-          max-width: 560px;
-        }
-
-        .link-btn {
-          max-width: var(--btn-width-medium-desktop);
-          height: 60px;
-          font-size: 1.15rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-medium-desktop);
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-medium-desktop);
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-medium-desktop);
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-medium-desktop);
-        }
-
-        .avatar-ring {
-          width: 120px;
-          height: 120px;
-        }
-      }
-
-      /* 大型機螢幕(> 1366px) */
-      @media (min-width: 1367px) {
-        .main-container {
-          padding: 5rem 2rem 3rem;
-          max-width: 900px;
-          margin: 0 auto;
-        }
-
-        .profile-name {
-          font-size: 3rem;
-        }
-
-        .profile-bio {
-          font-size: 1.3rem;
-          margin-bottom: 2.5rem;
-          max-width: 600px;
-        }
-
-        .link-btn {
-          max-width: 600px;
-          height: 64px;
-          font-size: 1.2rem;
-          margin-bottom: 1.75rem;
-        }
-
-        .avatar-ring {
-          width: 128px;
-          height: 128px;
-        }
-
-        .social-icon {
-          font-size: 2.5rem;
-          margin-bottom: 3rem;
         }
       }
 
@@ -1678,15 +1538,22 @@
         min-width: 150px;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
+        transform: translateY(-10px) scale(0.97);
+        transition:
+          opacity 200ms ease-in,
+          transform 200ms ease-in,
+          visibility 0s linear 200ms;
         z-index: 1001;
       }
 
       .rain-mode-selector.show {
         opacity: 1;
         visibility: visible;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+        transition:
+          opacity 340ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 0s linear 0s;
       }
 
       .rain-mode-item {
@@ -1721,7 +1588,12 @@
         position: relative;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        justify-content: flex-start;
+        justify-content: center;
+      }
+
+      .github-main-btn .github-arrow {
+        position: absolute;
+        right: var(--btn-padding-x);
       }
 
       .github-main-btn:hover {
@@ -1732,28 +1604,28 @@
       .github-main-content {
         display: flex;
         align-items: center;
-        position: relative;
-        width: 100%;
+        justify-content: center;
+        gap: var(--btn-gap);
+        flex: 1;
       }
 
       .github-main-content i {
-        position: absolute;
-        left: var(--icon-left-desktop);
         font-size: 1.1rem;
         width: 20px;
         text-align: center;
+        flex-shrink: 0;
       }
 
       .github-main-content span {
-        margin-left: var(--text-left-desktop);
+        white-space: nowrap;
       }
 
       .github-arrow {
         font-size: 0.9rem;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.44s cubic-bezier(0.34, 1.12, 0.64, 1);
         opacity: 0.7;
-        position: absolute;
-        right: var(--github-arrow-right-desktop);
+        flex-shrink: 0;
+        margin-left: 0.25rem;
       }
 
       .github-main-btn.active .github-arrow {
@@ -1772,8 +1644,11 @@
         padding: 12px 8px;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-15px) scale(0.95);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-12px) scale(0.96);
+        transition:
+          opacity 240ms ease-in,
+          transform 240ms ease-in,
+          visibility 0s linear 240ms;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
           0 0 0 1px rgba(255, 255, 255, 0.05);
         z-index: 1000;
@@ -1784,6 +1659,10 @@
         opacity: 1;
         visibility: visible;
         transform: translateY(0) scale(1);
+        transition:
+          opacity 460ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 0s linear 0s;
       }
 
       .github-account-item {
@@ -1901,187 +1780,8 @@
         transition-delay: 0.25s;
       }
 
-      /* 響應式設計 - 多種手機尺寸優化 */
-
-      /* 大型平板 (769px - 1024px) */
-      @media (max-width: 1024px) and (min-width: 769px) {
-        .link-btn {
-          max-width: var(--btn-width-small-desktop);
-        }
-
-        .link-btn i {
-          left: var(--icon-left-small-desktop);
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-small-desktop);
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-small-desktop);
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-small-desktop);
-        }
-      }
-
-      /* 小型平板/大型手機 (481px - 768px) */
-      @media (max-width: 768px) and (min-width: 481px) {
-        .link-btn {
-          max-width: var(--btn-width-small-tablet);
-          height: 50px;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-small-tablet);
-          font-size: 1rem;
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-small-tablet);
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-small-tablet);
-          font-size: 1rem;
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-small-tablet);
-        }
-
-        .github-arrow {
-          right: var(--github-arrow-right-small-tablet);
-        }
-      }
-
-      /* 大型手機 (401px - 480px) */
-      @media (max-width: 480px) and (min-width: 401px) {
-        .link-btn {
-          max-width: var(--btn-width-large-mobile);
-          height: 50px;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-large-mobile);
-          font-size: 1rem;
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-large-mobile);
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-large-mobile);
-          font-size: 1rem;
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-large-mobile);
-        }
-
-        .github-arrow {
-          right: var(--github-arrow-right-large-mobile);
-        }
-      }
-
-      /* 標準手機 (376px - 400px) */
-      @media (max-width: 400px) and (min-width: 376px) {
-        .link-btn {
-          max-width: var(--btn-width-mobile);
-          height: 48px;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-mobile);
-          font-size: 1rem;
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-mobile);
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-mobile);
-          font-size: 1rem;
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-mobile);
-        }
-
-        .github-arrow {
-          right: var(--github-arrow-right-mobile);
-        }
-      }
-
-      /* 小型手機 (321px - 375px) */
-      @media (max-width: 375px) and (min-width: 321px) {
-        .link-btn {
-          max-width: var(--btn-width-small-mobile);
-          height: 46px;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-small-mobile);
-          font-size: 0.95rem;
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-small-mobile);
-          font-size: 0.95rem;
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-small-mobile);
-          font-size: 0.95rem;
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-small-mobile);
-          font-size: 0.95rem;
-        }
-
-        .github-arrow {
-          right: var(--github-arrow-right-small-mobile);
-          font-size: 0.8rem;
-        }
-      }
-
-      /* 超小型手機 (≤320px) */
-      @media (max-width: 320px) {
-        .link-btn {
-          max-width: var(--btn-width-tiny-mobile);
-          height: 44px;
-        }
-
-        .link-btn i {
-          left: var(--icon-left-tiny-mobile);
-          font-size: 0.9rem;
-        }
-
-        .link-btn span {
-          margin-left: var(--text-left-tiny-mobile);
-          font-size: 0.9rem;
-        }
-
-        .github-main-content i {
-          left: var(--icon-left-tiny-mobile);
-          font-size: 0.9rem;
-        }
-
-        .github-main-content span {
-          margin-left: var(--text-left-tiny-mobile);
-          font-size: 0.9rem;
-        }
-
-        .github-arrow {
-          right: var(--github-arrow-right-tiny-mobile);
-          font-size: 0.75rem;
-        }
-      }
-
+      /* GitHub 帳戶面板 - 小螢幕優化 */
+      @media (max-width: 480px) {
         .github-accounts-panel {
           padding: 10px 6px;
         }
@@ -2095,12 +1795,223 @@
         }
 
         .github-account-name {
-          font-size: 0.9rem;
+          font-size: 0.875rem;
         }
 
         .github-account-desc {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
         }
+      }
+
+      /* iPhone SE / 超小型手機 (≤ 360px) */
+      @media (max-width: 360px) {
+        :root {
+          --btn-height: 44px;
+          --btn-font-size: 0.825rem;
+          --btn-gap: 0.4rem;
+          --btn-padding-x: 1rem;
+        }
+      }
+
+      /* ===== 作品集面板內分類標題 ===== */
+      .portfolio-cat-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 8px 12px 3px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        margin-top: 2px;
+        user-select: none;
+      }
+
+      .portfolio-cat-header i {
+        font-size: 0.7rem;
+        opacity: 0.8;
+      }
+
+      [data-theme="dark"] .portfolio-cat-header {
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      .portfolio-cat-separator {
+        height: 1px;
+        background: rgba(0, 0, 0, 0.07);
+        margin: 4px 10px;
+      }
+
+      [data-theme="dark"] .portfolio-cat-separator {
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      /* 作品集分類按鈕容器 */
+      .project-category-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .project-category-btn {
+        cursor: pointer;
+      }
+
+      .project-category-btn .category-arrow {
+        position: absolute;
+        right: var(--btn-padding-x);
+        font-size: 0.85rem;
+        opacity: 0.65;
+        transition: transform 0.44s cubic-bezier(0.34, 1.12, 0.64, 1);
+        flex-shrink: 0;
+      }
+
+      .project-category-btn.active .category-arrow {
+        transform: rotate(180deg);
+      }
+
+      /* 作品集展開面板 */
+      .project-list-panel {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.97);
+        backdrop-filter: blur(25px);
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        border-radius: 16px;
+        padding: 8px 6px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px) scale(0.97);
+        transition:
+          opacity 260ms ease-in,
+          transform 260ms ease-in,
+          visibility 0s linear 260ms;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
+        z-index: 200;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+
+      .project-list-panel.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+        transition:
+          opacity 480ms cubic-bezier(0.16, 1, 0.3, 1),
+          transform 540ms cubic-bezier(0.16, 1, 0.3, 1),
+          visibility 0s linear 0s;
+      }
+
+      [data-theme="dark"] .project-list-panel {
+        background: rgba(31, 41, 55, 0.97);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+
+      /* 作品集項目 */
+      .project-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        margin: 2px 0;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #1f2937;
+        transition: all 0.22s ease;
+        border: 1px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), transparent);
+        transition: left 0.5s ease;
+      }
+
+      .project-item:hover::before {
+        left: 100%;
+      }
+
+      .project-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.06);
+        transform: translateX(3px);
+      }
+
+      .project-item:active {
+        transform: translateX(2px) scale(0.99);
+      }
+
+      [data-theme="dark"] .project-item {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      [data-theme="dark"] .project-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .project-item-icon {
+        font-size: 1rem;
+        width: 22px;
+        text-align: center;
+        flex-shrink: 0;
+        opacity: 0.75;
+      }
+
+      .project-item-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .project-item-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        line-height: 1.25;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .project-item-desc {
+        font-size: clamp(0.65rem, 2vw, 0.72rem);
+        color: #6b7280;
+        line-height: 1.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      [data-theme="dark"] .project-item-desc {
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .project-item-link {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+      }
+
+      .project-item:hover .project-item-link {
+        color: #6b7280;
+        transform: translateX(2px);
+      }
+
+      [data-theme="dark"] .project-item-link {
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      [data-theme="dark"] .project-item:hover .project-item-link {
+        color: rgba(255, 255, 255, 0.7);
       }
     </style>
   </head>
@@ -2229,7 +2140,7 @@
       </a>
 
       <!-- 連結按鈕 -->
-      <div class="w-full max-w-md space-y-3">
+      <div class="links-container">
         <!-- GitHub 多帳戶選擇器 -->
         <div class="github-multi-account-container">
           <div
@@ -2330,14 +2241,13 @@
           <span id="linkedinText">LinkedIn</span>
         </a>
 
-        <a
-          href="https://gurulaptop-ckeditor-frontend.onrender.com/"
-          class="link-btn"
-          target="_blank"
-        >
-          <i class="fas fa-briefcase"></i>
-          <span id="portfolioText">Portfolio</span>
-        </a>
+        <!-- 作品集單一按鈕 -->
+        <div class="project-category-container">
+          <a class="link-btn" href="portfolio.html" target="_blank">
+            <i class="fas fa-layer-group"></i>
+            <span id="portfolioText">作品集</span>
+          </a>
+        </div>
 
         <a
           href="https://www.instagram.com/ken150ken150/"
@@ -2375,6 +2285,7 @@
           <i class="fab fa-youtube"></i>
           <span id="youtubeText">YouTube</span>
         </a>
+
       </div>
 
       <!-- 頁腳 -->
@@ -2842,7 +2753,7 @@
           refreshText: "Refresh",
           githubText: "GitHub",
           linkedinText: "LinkedIn",
-          portfolioText: "Portfolio",
+          portfolioText: "Portfolio / Projects",
           instagramText: "Instagram",
           emailText: "Email",
           cakeText: "Cake Resume",
@@ -3229,12 +3140,14 @@
           const accountItems = panel.querySelectorAll(".github-account-item");
           accountItems.forEach((item, index) => {
             item.style.opacity = "0";
-            item.style.transform = "translateY(-10px)";
+            item.style.transform = "translateY(-8px)";
+            const delay = 40 + Math.min(index * 55, 220);
             setTimeout(() => {
-              item.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+              item.style.transition =
+                "opacity 400ms cubic-bezier(0.16,1,0.3,1), transform 440ms cubic-bezier(0.16,1,0.3,1)";
               item.style.opacity = "1";
               item.style.transform = "translateY(0)";
-            }, index * 50);
+            }, delay);
           });
         } else {
           panel.classList.remove("show");
@@ -3261,6 +3174,69 @@
           mainBtn.classList.remove("active");
           githubPanelOpen = false;
           document.removeEventListener("click", closeGitHubPanelOnOutsideClick);
+        }
+      }
+
+      // ===== 作品集分類面板 =====
+      const openProjectPanels = new Set();
+
+      function toggleProjectCategory(category, event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const panel = document.getElementById(category + "-panel");
+        const btn = event.currentTarget;
+        const isOpen = panel.classList.contains("show");
+
+        // 關閉所有其他作品集面板
+        document.querySelectorAll(".project-list-panel.show").forEach((p) => {
+          if (p !== panel) {
+            p.classList.remove("show");
+            p.closest(".project-category-container")
+              .querySelector(".project-category-btn")
+              .classList.remove("active");
+          }
+        });
+
+        if (isOpen) {
+          panel.classList.remove("show");
+          btn.classList.remove("active");
+          openProjectPanels.delete(category);
+        } else {
+          panel.classList.add("show");
+          btn.classList.add("active");
+          openProjectPanels.add(category);
+
+          // 滑入動畫
+          const items = panel.querySelectorAll(".project-item");
+          items.forEach((item, index) => {
+            item.style.opacity = "0";
+            item.style.transform = "translateY(-7px)";
+            const delay = 50 + Math.min(index * 38, 240);
+            setTimeout(() => {
+              item.style.transition =
+                "opacity 420ms cubic-bezier(0.16,1,0.3,1), transform 460ms cubic-bezier(0.16,1,0.3,1)";
+              item.style.opacity = "1";
+              item.style.transform = "translateY(0)";
+            }, delay);
+          });
+
+          setTimeout(() => {
+            document.addEventListener("click", closeProjectPanelOnOutsideClick);
+          }, 100);
+        }
+      }
+
+      function closeProjectPanelOnOutsideClick(event) {
+        if (!event.target.closest(".project-category-container")) {
+          document.querySelectorAll(".project-list-panel.show").forEach((p) => {
+            p.classList.remove("show");
+            p.closest(".project-category-container")
+              .querySelector(".project-category-btn")
+              .classList.remove("active");
+          });
+          openProjectPanels.clear();
+          document.removeEventListener("click", closeProjectPanelOnOutsideClick);
         }
       }
 
