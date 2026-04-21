@@ -2718,6 +2718,7 @@
       // 多語言內容
       const translations = {
         zh: {
+          docTitle: "Ken's Linktree",
           profileName: "Ken",
           profileBio:
             "biological/cosmetic/MD/MedChem researcher👨‍🔬<br />被寫軟體耽誤的科學家<br />A scientist derailed by coding.",
@@ -2745,6 +2746,7 @@
           sharedSuccess: "分享成功！",
         },
         en: {
+          docTitle: "Ken's Linktree",
           profileName: "Ken",
           profileBio:
             "biological/cosmetic/MD/MedChem researcher👨‍🔬<br />A scientist derailed by coding.<br />被寫軟體耽誤的科學家",
@@ -3267,29 +3269,59 @@
         }
       });
 
-      // 切換語言
+      // 切換語言（含淡入淡出 + 跨分頁同步）
       function toggleLanguage() {
         currentLang = currentLang === "zh" ? "en" : "zh";
         localStorage.setItem("language", currentLang);
-        updateLanguage();
+        updateLanguage({ animate: true });
         updateStyleIcon();
       }
 
       // 更新語言內容
-      function updateLanguage() {
+      function updateLanguage(opts) {
+        const animate = opts && opts.animate;
         const texts = translations[currentLang];
+        const render = () => {
+          // 更新 <html lang> 與 <title>，利於 SEO / 輔助技術
+          document.documentElement.lang =
+            currentLang === "en" ? "en" : "zh-TW";
+          if (texts.docTitle) document.title = texts.docTitle;
 
-        Object.keys(texts).forEach((key) => {
-          const element = document.getElementById(key);
-          if (element) {
-            if (key === "profileBio") {
-              element.innerHTML = texts[key];
-            } else {
-              element.textContent = texts[key];
+          Object.keys(texts).forEach((key) => {
+            if (key === "docTitle") return;
+            const element = document.getElementById(key);
+            if (element) {
+              if (key === "profileBio") {
+                element.innerHTML = texts[key];
+              } else {
+                element.textContent = texts[key];
+              }
             }
-          }
-        });
+          });
+        };
+
+        if (animate) {
+          const mc = document.querySelector(".main-container");
+          if (!mc) { render(); return; }
+          mc.style.transition = "opacity 0.22s ease";
+          mc.style.opacity = "0";
+          setTimeout(() => {
+            render();
+            requestAnimationFrame(() => { mc.style.opacity = "1"; });
+          }, 180);
+        } else {
+          render();
+        }
       }
+
+      // 跨分頁同步：portfolio.html 或別的分頁切語言時，這裡也跟著更新
+      window.addEventListener("storage", (e) => {
+        if (e.key === "language" && e.newValue && e.newValue !== currentLang) {
+          currentLang = e.newValue === "en" ? "en" : "zh";
+          updateLanguage({ animate: true });
+          updateStyleIcon();
+        }
+      });
 
       // 顯示分享模態框
       function showShareModal() {

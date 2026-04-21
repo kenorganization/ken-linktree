@@ -340,11 +340,99 @@
       }
       .page-footer a:hover { color: white; }
 
+      /* ── 語言切換按鈕 ── */
+      .lang-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: white;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 12px;
+        padding: 0.55rem 0.95rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+      }
+      .lang-toggle:hover {
+        background: rgba(255, 255, 255, 0.26);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      /* ── 語言切換時的淡入淡出 ── */
+      [data-i18n], [data-i18n-html] {
+        transition: opacity 0.25s ease;
+      }
+      body.lang-switching [data-i18n],
+      body.lang-switching [data-i18n-html] {
+        opacity: 0;
+      }
+
+      /* ── 長按提示（卡片上方浮現的小 hint） ── */
+      .project-card, .featured-card {
+        /* 關閉行動裝置上長按的系統選單/高亮 */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+      }
+      .project-card.long-press-active,
+      .featured-card.long-press-active {
+        transform: scale(0.97) !important;
+        transition: transform 0.12s ease;
+      }
+
+      /* ── Toast 通知 ── */
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 32px;
+        transform: translateX(-50%) translateY(20px);
+        background: rgba(17, 24, 39, 0.88);
+        color: #fff;
+        padding: 0.75rem 1.25rem;
+        border-radius: 14px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1000;
+        transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        max-width: calc(100vw - 2rem);
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .toast.error { background: rgba(185, 28, 28, 0.9); }
+      .toast i { font-size: 1rem; }
+
       /* ── RWD ── */
       @media (max-width: 480px) {
-        .top-nav { flex-direction: column; align-items: flex-start; }
+        .top-nav { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
         .page-title-wrap { text-align: left; }
         .featured-badge { display: none; }
+        .nav-actions { width: 100%; justify-content: flex-start; }
       }
     </style>
   </head>
@@ -362,11 +450,17 @@
       <!-- 導覽 -->
       <nav class="top-nav">
         <a class="back-btn" href="index.html">
-          <i class="fas fa-arrow-left"></i> 返回 Linktree
+          <i class="fas fa-arrow-left"></i> <span data-i18n="back">返回 Linktree</span>
         </a>
-        <div class="page-title-wrap">
-          <div class="page-title">Ken's Portfolio</div>
-          <div class="page-subtitle">14 個專案 · 4 個分類</div>
+        <div class="nav-actions">
+          <button class="lang-toggle" type="button" id="langToggle" aria-label="Switch language" title="切換語言 / Switch language">
+            <i class="fas fa-globe"></i>
+            <span id="langToggleLabel">English</span>
+          </button>
+          <div class="page-title-wrap">
+            <div class="page-title" data-i18n="pageTitle">Ken's Portfolio</div>
+            <div class="page-subtitle" data-i18n="pageSubtitle">14 個專案 · 4 個分類</div>
+          </div>
         </div>
       </nav>
 
@@ -374,55 +468,55 @@
       <a class="featured-card" href="https://gurulaptop-ckeditor-frontend.onrender.com/" target="_blank">
         <div class="featured-icon"><i class="fas fa-briefcase"></i></div>
         <div class="featured-info">
-          <div class="featured-name">Portfolio 主站</div>
-          <div class="featured-desc">個人作品集主網站 — 完整專案展示</div>
+          <div class="featured-name" data-i18n="featuredName">Portfolio 主站</div>
+          <div class="featured-desc" data-i18n="featuredDesc">個人作品集主網站 — 完整專案展示</div>
         </div>
-        <span class="featured-badge">Featured</span>
+        <span class="featured-badge" data-i18n="featuredBadge">Featured</span>
       </a>
 
       <!-- 🎮 互動展示 -->
       <section class="category-section">
         <div class="category-header">
           <div class="cat-icon" style="background:rgba(99,102,241,0.28);color:#818cf8"><i class="fas fa-gamepad"></i></div>
-          <h2>互動展示</h2>
-          <span class="cat-count">4 個專案</span>
+          <h2 data-i18n="catInteractive">互動展示</h2>
+          <span class="cat-count" data-i18n="count4">4 個專案</span>
         </div>
         <div class="cards-grid">
 
           <a class="project-card" href="https://kenorganization.github.io/ken-ai-webgames/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><i class="fas fa-dice"></i></div>
-              <div class="card-title">網頁小遊戲合集</div>
+              <div class="card-title" data-i18n="p1Title">網頁小遊戲合集</div>
             </div>
-            <p class="card-desc">貪食蛇、打磚塊、塔防、瑪利歐等，完全使用 AI Vibe Coding 開發</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p1Desc">貪食蛇、打磚塊、塔防、瑪利歐等，完全使用 AI Vibe Coding 開發</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/sky_bird/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa)"><i class="fas fa-dove"></i></div>
-              <div class="card-title">天空飛鳥</div>
+              <div class="card-title" data-i18n="p2Title">天空飛鳥</div>
             </div>
-            <p class="card-desc">Vue 3 + Three.js 3D 互動場景，雲層與飛鳥動態渲染</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p2Desc">Vue 3 + Three.js 3D 互動場景，雲層與飛鳥動態渲染</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/aquarium/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)"><i class="fas fa-fish"></i></div>
-              <div class="card-title">水族箱</div>
+              <div class="card-title" data-i18n="p3Title">水族箱</div>
             </div>
-            <p class="card-desc">Three.js 3D 水族箱視覺展示，沉浸式互動體驗</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p3Desc">Three.js 3D 水族箱視覺展示,沉浸式互動體驗</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/Gemini-UI-Design-Build-Deploy/modern_layouts/index.html" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)"><i class="fas fa-magic"></i></div>
-              <div class="card-title">Gemini UI 設計實驗</div>
+              <div class="card-title" data-i18n="p4Title">Gemini UI 設計實驗</div>
             </div>
-            <p class="card-desc">讓 Google Gemini 自由發揮設計的現代 UI 佈局</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p4Desc">讓 Google Gemini 自由發揮設計的現代 UI 佈局</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
         </div>
@@ -432,36 +526,36 @@
       <section class="category-section">
         <div class="category-header">
           <div class="cat-icon" style="background:rgba(16,185,129,0.28);color:#34d399"><i class="fas fa-book-open"></i></div>
-          <h2>教學資源</h2>
-          <span class="cat-count">3 個專案</span>
+          <h2 data-i18n="catLearning">教學資源</h2>
+          <span class="cat-count" data-i18n="count3">3 個專案</span>
         </div>
         <div class="cards-grid">
 
           <a class="project-card" href="https://klchen41265401.github.io/typescript_to_java_tutorial/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fab fa-java"></i></div>
-              <div class="card-title">TypeScript → Java / Spring Boot</div>
+              <div class="card-title" data-i18n="p5Title">TypeScript → Java / Spring Boot</div>
             </div>
-            <p class="card-desc">從 TypeScript 到 Java 與 Spring Boot 的跨語言學習旅程教學</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p5Desc">從 TypeScript 到 Java 與 Spring Boot 的跨語言學習旅程教學</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/lowlevel-engine-tutorial/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><i class="fas fa-microchip"></i></div>
-              <div class="card-title">虛擬機與編譯器底層引擎</div>
+              <div class="card-title" data-i18n="p6Title">虛擬機與編譯器底層引擎</div>
             </div>
-            <p class="card-desc">互動式學習平台，深入理解虛擬機與編譯器底層架構原理</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p6Desc">互動式學習平台，深入理解虛擬機與編譯器底層架構原理</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/perfume-tutorial/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#ec4899,#f472b6)"><i class="fas fa-flask"></i></div>
-              <div class="card-title">香水教學</div>
+              <div class="card-title" data-i18n="p7Title">香水教學</div>
             </div>
-            <p class="card-desc">以香料化學為主軸的教學網站，科學角度認識香氛世界</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p7Desc">以香料化學為主軸的教學網站，科學角度認識香氛世界</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
         </div>
@@ -471,45 +565,45 @@
       <section class="category-section">
         <div class="category-header">
           <div class="cat-icon" style="background:rgba(244,63,94,0.28);color:#fb7185"><i class="fas fa-heart"></i></div>
-          <h2>社會關懷</h2>
-          <span class="cat-count">4 個專案</span>
+          <h2 data-i18n="catSocial">社會關懷</h2>
+          <span class="cat-count" data-i18n="count4b">4 個專案</span>
         </div>
         <div class="cards-grid">
 
           <a class="project-card" href="https://kenorganization.github.io/promote-pet-adoption/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#f43f5e,#fb7185)"><i class="fas fa-paw"></i></div>
-              <div class="card-title">貓狗領養指南</div>
+              <div class="card-title" data-i18n="p8Title">貓狗領養指南</div>
             </div>
-            <p class="card-desc">全台 22 縣市寵物認養優惠方案完整指南，支援中英雙語</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p8Desc">全台 22 縣市寵物認養優惠方案完整指南，支援中英雙語</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/migrant_worker_story/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-globe-asia"></i></div>
-              <div class="card-title">與移工的故事</div>
+              <div class="card-title" data-i18n="p9Title">與移工的故事</div>
             </div>
-            <p class="card-desc">跨文化相遇紀錄，三年的鄰居到家人（中性版）</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p9Desc">跨文化相遇紀錄，三年的鄰居到家人（中性版）</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/migrant_worker_story_simple/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#64748b,#94a3b8)"><i class="fas fa-feather"></i></div>
-              <div class="card-title">與移工的故事（簡化版）</div>
+              <div class="card-title" data-i18n="p10Title">與移工的故事（簡化版）</div>
             </div>
-            <p class="card-desc">匿名簡化版本，更易閱讀的精華呈現</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p10Desc">匿名簡化版本，更易閱讀的精華呈現</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://klchen41265401.github.io/migrant_worker_story_real/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#ef4444,#f87171)"><i class="fas fa-fire"></i></div>
-              <div class="card-title">與移工的故事（最真實版）</div>
+              <div class="card-title" data-i18n="p11Title">與移工的故事（最真實版）</div>
             </div>
-            <p class="card-desc">最完整的真實紀錄版本，含成人內容 🔞</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p11Desc">最完整的真實紀錄版本，含成人內容 🔞</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
         </div>
@@ -519,40 +613,312 @@
       <section class="category-section">
         <div class="category-header">
           <div class="cat-icon" style="background:rgba(139,92,246,0.28);color:#a78bfa"><i class="fas fa-star"></i></div>
-          <h2>個人品牌 / 合作</h2>
-          <span class="cat-count">2 個專案</span>
+          <h2 data-i18n="catBrand">個人品牌 / 合作</h2>
+          <span class="cat-count" data-i18n="count2">2 個專案</span>
         </div>
         <div class="cards-grid">
 
           <a class="project-card" href="https://kenensh.github.io/interviewfirst/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)"><i class="fas fa-user-graduate"></i></div>
-              <div class="card-title">轉職心得分享</div>
+              <div class="card-title" data-i18n="p12Title">轉職心得分享</div>
             </div>
-            <p class="card-desc">生技背景轉職前端工程師的歷程，面試約 17 間公司的完整紀錄</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p12Desc">生技背景轉職前端工程師的歷程，面試約 17 間公司的完整紀錄</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
           <a class="project-card" href="https://coach-aaron-test.vercel.app/" target="_blank">
             <div class="card-top">
               <div class="card-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fas fa-dumbbell"></i></div>
-              <div class="card-title">阿倫教練網站</div>
+              <div class="card-title" data-i18n="p13Title">阿倫教練網站</div>
             </div>
-            <p class="card-desc">教練心理學個人品牌網站，幫助健身教練掌握銷售心理與商業經營</p>
-            <div class="card-footer"><span class="card-visit">查看 <i class="fas fa-arrow-right"></i></span></div>
+            <p class="card-desc" data-i18n="p13Desc">教練心理學個人品牌網站，幫助健身教練掌握銷售心理與商業經營</p>
+            <div class="card-footer"><span class="card-visit"><span data-i18n="visit">查看</span> <i class="fas fa-arrow-right"></i></span></div>
           </a>
 
         </div>
       </section>
 
       <footer class="page-footer">
-        <p>© 2025 Ken · <a href="index.html">回到 Linktree</a></p>
+        <p>© 2025 Ken · <a href="index.html" data-i18n="backToLinktree">回到 Linktree</a></p>
       </footer>
 
     </div><!-- /page-wrap -->
 
+    <!-- Toast 通知 -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <i class="fas fa-check-circle"></i>
+      <span id="toastText">已複製連結</span>
+    </div>
+
     <script>
-      // ── 影片輪播（Fisher-Yates，與 index.html 相同片庫）──
+      // ──────────────────────────────────────────────
+      // 多語系（中 / 英）
+      // ──────────────────────────────────────────────
+      const I18N = {
+        zh: {
+          docTitle: "Ken's Portfolio — 作品集總覽",
+          back: "返回 Linktree",
+          backToLinktree: "回到 Linktree",
+          langBtn: "English",
+          pageTitle: "Ken's Portfolio",
+          pageSubtitle: "14 個專案 · 4 個分類",
+          featuredName: "Portfolio 主站",
+          featuredDesc: "個人作品集主網站 — 完整專案展示",
+          featuredBadge: "Featured",
+          catInteractive: "互動展示",
+          catLearning: "教學資源",
+          catSocial: "社會關懷",
+          catBrand: "個人品牌 / 合作",
+          count4: "4 個專案",
+          count4b: "4 個專案",
+          count3: "3 個專案",
+          count2: "2 個專案",
+          visit: "查看",
+          p1Title: "網頁小遊戲合集",
+          p1Desc: "貪食蛇、打磚塊、塔防、瑪利歐等，完全使用 AI Vibe Coding 開發",
+          p2Title: "天空飛鳥",
+          p2Desc: "Vue 3 + Three.js 3D 互動場景，雲層與飛鳥動態渲染",
+          p3Title: "水族箱",
+          p3Desc: "Three.js 3D 水族箱視覺展示，沉浸式互動體驗",
+          p4Title: "Gemini UI 設計實驗",
+          p4Desc: "讓 Google Gemini 自由發揮設計的現代 UI 佈局",
+          p5Title: "TypeScript → Java / Spring Boot",
+          p5Desc: "從 TypeScript 到 Java 與 Spring Boot 的跨語言學習旅程教學",
+          p6Title: "虛擬機與編譯器底層引擎",
+          p6Desc: "互動式學習平台，深入理解虛擬機與編譯器底層架構原理",
+          p7Title: "香水教學",
+          p7Desc: "以香料化學為主軸的教學網站，科學角度認識香氛世界",
+          p8Title: "貓狗領養指南",
+          p8Desc: "全台 22 縣市寵物認養優惠方案完整指南，支援中英雙語",
+          p9Title: "與移工的故事",
+          p9Desc: "跨文化相遇紀錄，三年的鄰居到家人（中性版）",
+          p10Title: "與移工的故事（簡化版）",
+          p10Desc: "匿名簡化版本，更易閱讀的精華呈現",
+          p11Title: "與移工的故事（最真實版）",
+          p11Desc: "最完整的真實紀錄版本，含成人內容 🔞",
+          p12Title: "轉職心得分享",
+          p12Desc: "生技背景轉職前端工程師的歷程，面試約 17 間公司的完整紀錄",
+          p13Title: "阿倫教練網站",
+          p13Desc: "教練心理學個人品牌網站，幫助健身教練掌握銷售心理與商業經營",
+          toastCopied: "已複製連結",
+          toastCopyFail: "複製失敗，請手動複製",
+          langBtnAria: "切換為英文",
+        },
+        en: {
+          docTitle: "Ken's Portfolio — Projects Overview",
+          back: "Back to Linktree",
+          backToLinktree: "Back to Linktree",
+          langBtn: "中文",
+          pageTitle: "Ken's Portfolio",
+          pageSubtitle: "14 Projects · 4 Categories",
+          featuredName: "Portfolio Main Site",
+          featuredDesc: "Personal portfolio main website — full project showcase",
+          featuredBadge: "Featured",
+          catInteractive: "Interactive Demos",
+          catLearning: "Learning Resources",
+          catSocial: "Social Impact",
+          catBrand: "Personal Brand / Collaboration",
+          count4: "4 Projects",
+          count4b: "4 Projects",
+          count3: "3 Projects",
+          count2: "2 Projects",
+          visit: "View",
+          p1Title: "Web Mini-Games Collection",
+          p1Desc: "Snake, breakout, tower defense, Mario and more — built entirely with AI vibe coding",
+          p2Title: "Sky Birds",
+          p2Desc: "Vue 3 + Three.js 3D interactive scene with dynamic clouds and birds",
+          p3Title: "Aquarium",
+          p3Desc: "Three.js 3D aquarium — an immersive visual experience",
+          p4Title: "Gemini UI Design Lab",
+          p4Desc: "Modern UI layouts freely designed by Google Gemini",
+          p5Title: "TypeScript → Java / Spring Boot",
+          p5Desc: "A cross-language learning journey from TypeScript to Java & Spring Boot",
+          p6Title: "VM & Compiler Low-level Engine",
+          p6Desc: "Interactive platform to deeply understand VM and compiler internals",
+          p7Title: "Perfume Tutorial",
+          p7Desc: "A chemistry-centered site exploring the world of fragrance through science",
+          p8Title: "Cat & Dog Adoption Guide",
+          p8Desc: "Complete pet adoption guide covering 22 cities in Taiwan (zh/en)",
+          p9Title: "Stories with Migrant Workers",
+          p9Desc: "A cross-cultural record — from neighbors to family over three years (neutral)",
+          p10Title: "Stories with Migrant Workers (Simplified)",
+          p10Desc: "Anonymized, simplified version for easier reading",
+          p11Title: "Stories with Migrant Workers (Unfiltered)",
+          p11Desc: "The most complete, unfiltered record — contains mature content 🔞",
+          p12Title: "Career Transition Story",
+          p12Desc: "From biotech to front-end engineer — full record of ~17 company interviews",
+          p13Title: "Coach Aaron's Site",
+          p13Desc: "Coaching-psychology personal brand — sales mindset & business for fitness coaches",
+          toastCopied: "Link copied",
+          toastCopyFail: "Copy failed — please copy manually",
+          langBtnAria: "Switch to Chinese",
+        },
+      };
+
+      const LANG_KEY = "language";
+      let currentLang = localStorage.getItem(LANG_KEY) === "en" ? "en" : "zh";
+
+      function applyLang(lang, { animate = false } = {}) {
+        const dict = I18N[lang] || I18N.zh;
+        const render = () => {
+          document.documentElement.lang = lang === "en" ? "en" : "zh-TW";
+          document.title = dict.docTitle;
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const k = el.getAttribute("data-i18n");
+            if (dict[k] != null) el.textContent = dict[k];
+          });
+          const btn = document.getElementById("langToggleLabel");
+          if (btn) btn.textContent = dict.langBtn;
+          const toggle = document.getElementById("langToggle");
+          if (toggle) toggle.setAttribute("aria-label", dict.langBtnAria);
+        };
+        if (animate) {
+          document.body.classList.add("lang-switching");
+          setTimeout(() => {
+            render();
+            requestAnimationFrame(() => {
+              document.body.classList.remove("lang-switching");
+            });
+          }, 180);
+        } else {
+          render();
+        }
+      }
+
+      function toggleLang() {
+        currentLang = currentLang === "zh" ? "en" : "zh";
+        localStorage.setItem(LANG_KEY, currentLang);
+        applyLang(currentLang, { animate: true });
+      }
+
+      document.getElementById("langToggle").addEventListener("click", toggleLang);
+
+      // 跨分頁同步：另一個分頁切換語言時這邊也跟著更新
+      window.addEventListener("storage", (e) => {
+        if (e.key === LANG_KEY && e.newValue && e.newValue !== currentLang) {
+          currentLang = e.newValue === "en" ? "en" : "zh";
+          applyLang(currentLang, { animate: true });
+        }
+      });
+
+      // 首次套用
+      applyLang(currentLang);
+
+      // ──────────────────────────────────────────────
+      // Toast
+      // ──────────────────────────────────────────────
+      const toastEl = document.getElementById("toast");
+      const toastTextEl = document.getElementById("toastText");
+      const toastIconEl = toastEl.querySelector("i");
+      let toastTimer = null;
+      function showToast(text, { error = false } = {}) {
+        toastTextEl.textContent = text;
+        toastEl.classList.toggle("error", error);
+        toastIconEl.className = error ? "fas fa-exclamation-circle" : "fas fa-check-circle";
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1800);
+      }
+
+      // ──────────────────────────────────────────────
+      // 長按複製卡片連結（滑鼠長按 / 手機長按皆可）
+      // ──────────────────────────────────────────────
+      const LONG_PRESS_MS = 500;
+      const MOVE_TOLERANCE = 10;
+
+      async function copyText(text) {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (_) {}
+        // Fallback
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function attachLongPressCopy(el) {
+        let timer = null;
+        let startX = 0, startY = 0;
+        let triggered = false;
+
+        const clear = () => {
+          if (timer) { clearTimeout(timer); timer = null; }
+          el.classList.remove("long-press-active");
+        };
+
+        el.addEventListener("pointerdown", (e) => {
+          // 只處理主要按鍵（左鍵 / 觸控 / 筆）
+          if (e.button !== undefined && e.button !== 0) return;
+          triggered = false;
+          startX = e.clientX;
+          startY = e.clientY;
+          el.classList.add("long-press-active");
+          timer = setTimeout(async () => {
+            triggered = true;
+            el.classList.remove("long-press-active");
+            const href = el.getAttribute("href") || "";
+            // 轉絕對網址
+            const absolute = new URL(href, window.location.href).toString();
+            const ok = await copyText(absolute);
+            const dict = I18N[currentLang] || I18N.zh;
+            if (ok) {
+              showToast(dict.toastCopied);
+              // 觸覺回饋（手機）
+              if (navigator.vibrate) { try { navigator.vibrate(25); } catch (_) {} }
+            } else {
+              showToast(dict.toastCopyFail, { error: true });
+            }
+          }, LONG_PRESS_MS);
+        });
+
+        el.addEventListener("pointermove", (e) => {
+          if (!timer) return;
+          if (Math.hypot(e.clientX - startX, e.clientY - startY) > MOVE_TOLERANCE) {
+            clear();
+          }
+        });
+
+        ["pointerup", "pointerleave", "pointercancel"].forEach((evt) =>
+          el.addEventListener(evt, clear)
+        );
+
+        // 若已觸發長按，攔截 click 不讓它打開連結
+        el.addEventListener("click", (e) => {
+          if (triggered) {
+            e.preventDefault();
+            e.stopPropagation();
+            triggered = false;
+          }
+        });
+
+        // 避免行動裝置彈出系統選單
+        el.addEventListener("contextmenu", (e) => {
+          // 桌機右鍵仍允許（方便除錯），手機長按系統選單才阻止
+          if (e.pointerType === "touch" || window.matchMedia("(pointer: coarse)").matches) {
+            e.preventDefault();
+          }
+        });
+      }
+
+      document.querySelectorAll(".project-card, .featured-card").forEach(attachLongPressCopy);
+
+      // ──────────────────────────────────────────────
+      // 影片輪播（Fisher-Yates，與 index.html 相同片庫）
+      // ──────────────────────────────────────────────
       const VIDEOS = [
         "src/background-media/4108992-sd_540_676_30fps.mp4",
         "src/background-media/4157418-hd_720_1280_30fps.mp4",
